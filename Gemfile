@@ -24,6 +24,11 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+# add Gem
+gem 'devise'
+gem 'activeadmin'
+gem 'rack-attack'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
@@ -47,6 +52,10 @@ group :development do
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec'
+
+  # SecurityCheck
+  gem 'brakeman'
+  gem 'bundler-audit'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
