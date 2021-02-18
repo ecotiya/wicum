@@ -100,6 +100,9 @@ http://localhost:8080/db_structure.php?server=1&db=wicum_develop
 
 
 ## コンテナ上のコンソールログイン
-　docker exec -it <containerId> bash
+　①wicumを配備しているカレントディレクトリに移動
+　②[docker ps] wicum_web の「CONTAINER ID」を確認
+　③下記(containerId)のところに上記②で調べたIDを入力
+　　docker exec -it (containerId) bash
 　bundle exec rails c
 　Ctrl + P + Q
