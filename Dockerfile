@@ -1,4 +1,4 @@
-FROM ruby:2.7
+FROM ruby:2.7.1
 LABEL maintainer="ghqyydf829@gmail.com"
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
@@ -9,6 +9,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 WORKDIR /myapp
 COPY Gemfile /myapp/Gemfile
 COPY Gemfile.lock /myapp/Gemfile.lock
+RUN bundle update
 RUN bundle install
 COPY . /myapp
 
