@@ -47,42 +47,6 @@ ShowTag=1
 ShowCommonAttributes=0
 
 [Entity]
-PName=m_authoritys
-LName=権限マスタ
-Comment=
-TableOption=
-Page=ER図
-Left=750
-Top=300
-Field="権限コード","authority_code","varchar(255)","NOT NULL",0,"","",$FFFFFFFF,""
-Field="権限名称","authority_name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
-Field="画面コード","screen_code","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
-Index=fk_m_screens_m_authoritys_authority_code_idx=0,screen_code
-EffectMode=None
-Color=$000000
-BkColor=$FFFFFF
-ModifiedDateTime=20210623110931
-Position="ER図",750,300,481,110
-ZOrder=-1
-
-[Entity]
-PName=m_screens
-LName=画面マスタ
-Comment=
-TableOption=
-Page=ER図
-Left=1500
-Top=350
-Field="画面コード","screen_code","varchar(255)","NOT NULL",0,"","",$FFFFFFFF,""
-Field="画面名称","screen_name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
-EffectMode=None
-Color=$000000
-BkColor=$FFFFFF
-ModifiedDateTime=20210623110939
-Position="ER図",1500,350,474,69
-ZOrder=-4
-
-[Entity]
 PName=m_categorys
 LName=問い合わせカテゴリマスタ
 Comment=
@@ -135,26 +99,6 @@ BkColor=$FFFFFF
 ModifiedDateTime=20210623111956
 Position="ER図",150,1900
 ZOrder=-5
-
-[Entity]
-PName=t_screen_change_historys
-LName=画面変更履歴
-Comment=
-TableOption=
-Page=ER図
-Left=1500
-Top=650
-Field="履歴ID","history_id","bigint auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
-Field="ユーザID","user_id","bigint","NOT NULL",,"","",$FFFFFFFF,""
-Field="画面コード","screen_code","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
-Field="内容","content","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
-Index=fk_m_screens_t_screen_change_historys_screen_code_idx=0,screen_code
-EffectMode=None
-Color=$000000
-BkColor=$FFFFFF
-ModifiedDateTime=20210623114157
-Position="ER図",1500,650
-ZOrder=-8
 
 [Entity]
 PName=t_inquiry_lists
@@ -261,15 +205,16 @@ Top=300
 Field="ユーザID","user_id","bigint auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
 Field="ユーザ名","user_name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
 Field="メールアドレス","mail_address","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
-Field="パスワード","password","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
-Field="権限コード","authority_code","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="パスワード","password","password","NOT NULL",,"","",$FFFFFFFF,""
+Field="パスワード確認","password_confirmation","password","NOT NULL",,"","",$FFFFFFFF,""
+Field="管理者フラグ","admin","boolean","NOT NULL",,"","",$FFFFFFFF,""
 Field="アイコン","icon","varchar(255)",,,"","",$FFFFFFFF,""
 Field="仮登録フラグ","temp_regist_flg","boolean","NOT NULL",,"","",$FFFFFFFF,""
-Index=fk_m_authoritys_t_users_authority_code_idx=0,authority_code
+Index=fk_m_authoritys_t_users_authority_code_idx=0,admin
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20210623110921
+ModifiedDateTime=20210628084720
 Position="ER図",100,300
 ZOrder=-13
 
@@ -396,27 +341,6 @@ TermPos2=R
 ZOrder=-19
 
 [Relation]
-Entity1=m_authoritys
-Entity2=t_users
-RelationType1=1
-RelationType2=3
-Fields1=authority_code
-Fields2=authority_code
-Cardinarity1=
-Cardinarity2=
-Position="ER図",0,6083,9500,4382,R,R,""
-Dependence=0
-Caption=
-PName=
-LineMode=0
-Bar1=608
-Bar2=950
-Bar3=438
-TermPos1=R
-TermPos2=R
-ZOrder=-14
-
-[Relation]
 Entity1=m_categorys
 Entity2=t_inquiry_lists
 RelationType1=1
@@ -436,48 +360,6 @@ Bar3=469
 TermPos1=R
 TermPos2=R
 ZOrder=-15
-
-[Relation]
-Entity1=m_screens
-Entity2=m_authoritys
-RelationType1=1
-RelationType2=3
-Fields1=screen_code
-Fields2=screen_code
-Cardinarity1=
-Cardinarity2=
-Position="ER図",0,5632,7211,5661,R,R,""
-Dependence=0
-Caption=
-PName=
-LineMode=0
-Bar1=563
-Bar2=721
-Bar3=566
-TermPos1=R
-TermPos2=R
-ZOrder=-16
-
-[Relation]
-Entity1=m_screens
-Entity2=t_screen_change_historys
-RelationType1=1
-RelationType2=3
-Fields1=screen_code
-Fields2=screen_code
-Cardinarity1=
-Cardinarity2=
-Position="ER図",0,5539,5851,5428,R,R,""
-Dependence=0
-Caption=
-PName=
-LineMode=0
-Bar1=554
-Bar2=585
-Bar3=543
-TermPos1=R
-TermPos2=R
-ZOrder=-17
 
 [Relation]
 Entity1=m_states
@@ -536,24 +418,3 @@ Bar3=600
 TermPos1=R
 TermPos2=R
 ZOrder=2
-
-[Relation]
-Entity1=t_users
-Entity2=t_screen_change_historys
-RelationType1=1
-RelationType2=3
-Fields1=user_id
-Fields2=user_id
-Cardinarity1=
-Cardinarity2=
-Position="ER図",0,10000,6681,4909,R,R,""
-Dependence=0
-Caption=
-PName=
-LineMode=0
-Bar1=1000
-Bar2=668
-Bar3=491
-TermPos1=R
-TermPos2=R
-ZOrder=3
