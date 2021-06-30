@@ -7,8 +7,6 @@ ruby '2.7.1'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.3'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.4.4'
-# Use Frontend framework
-gem 'react-rails'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
@@ -25,16 +23,20 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 
 # add Gem-----------------------------------start
-# Authentication
+# Use Frontend framework
+gem 'react-rails', '~> 2.6'
+# Device
 gem 'devise', '>= 4.8.0'
-# Authority
+gem 'devise-i18n'
+gem 'devise-i18n-views'
+# 権限管理
 gem 'activeadmin', '>= 2.9.0'
 gem 'cancancan', '>= 3.3.0'
-# File Upload & Delete
+# ファイルアップロード＆ファイル削除
 gem 'paperclip', '>= 6.1.0'
-# Pagination
+# ページネーション
 gem 'kaminari', '>= 1.2.1'
-# Security
+# DDos攻撃
 gem 'rack-attack', '>= 6.5.0'
 # add Gem-----------------------------------end
 

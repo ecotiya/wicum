@@ -105,6 +105,9 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-i18n (1.10.0)
+      devise (>= 4.8.0)
+    devise-i18n-views (0.3.7)
     diff-lcs (1.4.4)
     erubi (1.10.0)
     execjs (2.8.1)
@@ -345,6 +348,8 @@ DEPENDENCIES
   byebug
   cancancan (>= 3.3.0)
   devise (>= 4.8.0)
+  devise-i18n
+  devise-i18n-views
   factory_bot_rails
   jbuilder (~> 2.7)
   kaminari (>= 1.2.1)
@@ -354,7 +359,7 @@ DEPENDENCIES
   puma (~> 4.1)
   rack-attack (>= 6.5.0)
   rails (~> 6.0.3, >= 6.0.3.3)
-  react-rails
+  react-rails (~> 2.6)
   rspec-rails
   rubocop
   rubocop-inflector

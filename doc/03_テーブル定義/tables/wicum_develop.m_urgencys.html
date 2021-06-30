@@ -23,7 +23,7 @@
 			<th>サブシステム名</th>
 			<td>&nbsp;</td>
 			<th>作成日</th>
-			<td>2021/06/23&nbsp;</td>
+			<td>2021/06/29&nbsp;</td>
 		</tr>
 		<tr>
 			<th>スキーマ名</th>
@@ -100,8 +100,8 @@
 		<tr>
 			<td style="text-align:right;">4</td>
 			<td>登録ユーザID</td>
-			<td>regist_userid</td>
-			<td>varchar(45)</td>
+			<td>created_userid</td>
+			<td>bigint</td>
 			<td>Yes</td>
 			<td></td>
 			<td></td>
@@ -110,7 +110,7 @@
 			<td style="text-align:right;">5</td>
 			<td>更新ユーザID</td>
 			<td>update_userid</td>
-			<td>varchar(45)</td>
+			<td>bigint</td>
 			<td>Yes</td>
 			<td></td>
 			<td></td>
@@ -118,7 +118,7 @@
 		<tr>
 			<td style="text-align:right;">6</td>
 			<td>登録日時</td>
-			<td>regist_datetime</td>
+			<td>created_at</td>
 			<td>datetime</td>
 			<td>Yes</td>
 			<td></td>
@@ -127,7 +127,7 @@
 		<tr>
 			<td style="text-align:right;">7</td>
 			<td>更新日時</td>
-			<td>update_datetime</td>
+			<td>updated_at</td>
 			<td>datetime</td>
 			<td>Yes</td>
 			<td></td>
@@ -223,6 +223,13 @@
 			<th>カラムリスト</th>
 			<th>参照元</th>
 			<th>参照元カラムリスト</th>
+		</tr>
+		<tr>
+			<td style="text-align:right;">1</td>
+			<td>wicum_develop.`t_inquiry_lists_FK1`</td>
+			<td>urgency_code</td>
+			<td>wicum_develop.t_inquiry_lists</td>
+			<td>urgency_code</td>
 		</tr>
 	</table>
 
@@ -332,7 +339,7 @@
 		<tr>
 			<td style="text-align:right;">15</td>
 			<td>CREATE_TIME</td>
-			<td>2021/06/23&#32;21:30:50</td>
+			<td>2021/06/29&#32;23:18:09</td>
 		</tr>
 		<tr>
 			<td style="text-align:right;">16</td>

@@ -13,8 +13,8 @@ default: &default
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root
-  password: password
+  username: ecotiya
+  password: ecotiya
   host: db
 
 development:
@@ -24,9 +24,9 @@ development:
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
-# test:
-#   <<: *default
-#   database: wicum_develop
+test:
+  <<: *default
+  database: wicum_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -47,8 +47,8 @@ development:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-# production:
-#   <<: *default
-#   database: myapp_production
-#   username: myapp
-#   password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+production:
+  <<: *default
+  database: wicum_production
+  username: myapp
+  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>

@@ -23,7 +23,7 @@
 			<th>サブシステム名</th>
 			<td>&nbsp;</td>
 			<th>作成日</th>
-			<td>2021/06/23&nbsp;</td>
+			<td>2021/06/29&nbsp;</td>
 		</tr>
 		<tr>
 			<th>スキーマ名</th>
@@ -163,8 +163,8 @@
 		<tr>
 			<td style="text-align:right;">11</td>
 			<td>登録ユーザID</td>
-			<td>regist_userid</td>
-			<td>varchar(45)</td>
+			<td>created_userid</td>
+			<td>bigint</td>
 			<td>Yes</td>
 			<td></td>
 			<td></td>
@@ -173,7 +173,7 @@
 			<td style="text-align:right;">12</td>
 			<td>更新ユーザID</td>
 			<td>update_userid</td>
-			<td>varchar(45)</td>
+			<td>bigint</td>
 			<td>Yes</td>
 			<td></td>
 			<td></td>
@@ -181,7 +181,7 @@
 		<tr>
 			<td style="text-align:right;">13</td>
 			<td>登録日時</td>
-			<td>regist_datetime</td>
+			<td>created_at</td>
 			<td>datetime</td>
 			<td>Yes</td>
 			<td></td>
@@ -190,7 +190,7 @@
 		<tr>
 			<td style="text-align:right;">14</td>
 			<td>更新日時</td>
-			<td>update_datetime</td>
+			<td>updated_at</td>
 			<td>datetime</td>
 			<td>Yes</td>
 			<td></td>
@@ -295,6 +295,34 @@
 			<th>参照先</th>
 			<th>参照先カラムリスト</th>
 		</tr>
+		<tr>
+			<td style="text-align:right;">1</td>
+			<td>wicum_develop.`t_task_lists_FK1`</td>
+			<td>mid_classify_id</td>
+			<td>wicum_develop.t_task_mid_classifys</td>
+			<td>mid_classify_id</td>
+		</tr>
+		<tr>
+			<td style="text-align:right;">2</td>
+			<td>wicum_develop.`t_task_lists_FK2`</td>
+			<td>user_id</td>
+			<td>wicum_develop.t_users</td>
+			<td>user_id</td>
+		</tr>
+		<tr>
+			<td style="text-align:right;">3</td>
+			<td>wicum_develop.`t_task_lists_FK3`</td>
+			<td>big_classify_id</td>
+			<td>wicum_develop.t_task_big_classifys</td>
+			<td>big_classify_id</td>
+		</tr>
+		<tr>
+			<td style="text-align:right;">4</td>
+			<td>wicum_develop.`t_task_lists_FK4`</td>
+			<td>status_code</td>
+			<td>wicum_develop.m_states</td>
+			<td>status_code</td>
+		</tr>
 	</table>
 
 <br>
@@ -314,6 +342,13 @@
 			<th>カラムリスト</th>
 			<th>参照元</th>
 			<th>参照元カラムリスト</th>
+		</tr>
+		<tr>
+			<td style="text-align:right;">1</td>
+			<td>wicum_develop.`t_subtask_lists_FK2`</td>
+			<td>task_id</td>
+			<td>wicum_develop.t_subtask_lists</td>
+			<td>task_id</td>
 		</tr>
 	</table>
 
@@ -408,7 +443,7 @@
 		<tr>
 			<td style="text-align:right;">12</td>
 			<td>INDEX_LENGTH</td>
-			<td>0</td>
+			<td>65536</td>
 		</tr>
 		<tr>
 			<td style="text-align:right;">13</td>
@@ -418,12 +453,12 @@
 		<tr>
 			<td style="text-align:right;">14</td>
 			<td>AUTO_INCREMENT</td>
-			<td></td>
+			<td>1</td>
 		</tr>
 		<tr>
 			<td style="text-align:right;">15</td>
 			<td>CREATE_TIME</td>
-			<td>2021/06/23&#32;21:30:49</td>
+			<td>2021/06/29&#32;23:18:09</td>
 		</tr>
 		<tr>
 			<td style="text-align:right;">16</td>

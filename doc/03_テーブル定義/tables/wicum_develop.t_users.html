@@ -23,7 +23,7 @@
 			<th>サブシステム名</th>
 			<td>&nbsp;</td>
 			<th>作成日</th>
-			<td>2021/06/23&nbsp;</td>
+			<td>2021/06/29&nbsp;</td>
 		</tr>
 		<tr>
 			<th>スキーマ名</th>
@@ -108,8 +108,8 @@
 		</tr>
 		<tr>
 			<td style="text-align:right;">5</td>
-			<td>権限コード</td>
-			<td>authority_code</td>
+			<td>パスワード確認</td>
+			<td>password_confirmation</td>
 			<td>varchar(255)</td>
 			<td>Yes</td>
 			<td></td>
@@ -117,6 +117,15 @@
 		</tr>
 		<tr>
 			<td style="text-align:right;">6</td>
+			<td>管理者フラグ</td>
+			<td>admin</td>
+			<td>tinyint(1)</td>
+			<td>Yes</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td style="text-align:right;">7</td>
 			<td>アイコン</td>
 			<td>icon</td>
 			<td>varchar(255)</td>
@@ -125,7 +134,7 @@
 			<td></td>
 		</tr>
 		<tr>
-			<td style="text-align:right;">7</td>
+			<td style="text-align:right;">8</td>
 			<td>仮登録フラグ</td>
 			<td>temp_regist_flg</td>
 			<td>tinyint(1)</td>
@@ -134,36 +143,36 @@
 			<td></td>
 		</tr>
 		<tr>
-			<td style="text-align:right;">8</td>
-			<td>登録ユーザID</td>
-			<td>regist_userid</td>
-			<td>varchar(45)</td>
-			<td>Yes</td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
 			<td style="text-align:right;">9</td>
-			<td>更新ユーザID</td>
-			<td>update_userid</td>
-			<td>varchar(45)</td>
+			<td>登録ユーザID</td>
+			<td>created_userid</td>
+			<td>bigint</td>
 			<td>Yes</td>
 			<td></td>
 			<td></td>
 		</tr>
 		<tr>
 			<td style="text-align:right;">10</td>
-			<td>登録日時</td>
-			<td>regist_datetime</td>
-			<td>datetime</td>
+			<td>更新ユーザID</td>
+			<td>update_userid</td>
+			<td>bigint</td>
 			<td>Yes</td>
 			<td></td>
 			<td></td>
 		</tr>
 		<tr>
 			<td style="text-align:right;">11</td>
+			<td>登録日時</td>
+			<td>created_at</td>
+			<td>datetime</td>
+			<td>Yes</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td style="text-align:right;">12</td>
 			<td>更新日時</td>
-			<td>update_datetime</td>
+			<td>updated_at</td>
 			<td>datetime</td>
 			<td>Yes</td>
 			<td></td>
@@ -194,13 +203,6 @@
 			<td>PRIMARY</td>
 			<td>user_id</td>
 			<td>Yes</td>
-			<td>&nbsp;</td>
-		</tr>
-		<tr>
-			<td style="text-align:right;">2</td>
-			<td>fk_m_authoritys_t_users_authority_code_idx</td>
-			<td>authority_code</td>
-			<td>&nbsp;</td>
 			<td>&nbsp;</td>
 		</tr>
 	</table>
@@ -266,6 +268,13 @@
 			<th>カラムリスト</th>
 			<th>参照元</th>
 			<th>参照元カラムリスト</th>
+		</tr>
+		<tr>
+			<td style="text-align:right;">1</td>
+			<td>wicum_develop.`t_task_lists_FK2`</td>
+			<td>user_id</td>
+			<td>wicum_develop.t_task_lists</td>
+			<td>user_id</td>
 		</tr>
 	</table>
 
@@ -370,12 +379,12 @@
 		<tr>
 			<td style="text-align:right;">14</td>
 			<td>AUTO_INCREMENT</td>
-			<td></td>
+			<td>1</td>
 		</tr>
 		<tr>
 			<td style="text-align:right;">15</td>
 			<td>CREATE_TIME</td>
-			<td>2021/06/23&#32;21:30:49</td>
+			<td>2021/06/29&#32;23:18:09</td>
 		</tr>
 		<tr>
 			<td style="text-align:right;">16</td>
