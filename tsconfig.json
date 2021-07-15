@@ -11,7 +11,16 @@
         "*": ["node_modules/*", "app/javascript/*"]
     },
     "sourceMap": true,
-    "target": "es5"
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "removeComments": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true
   },
   "exclude": [
     "**/*.spec.ts",
