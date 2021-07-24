@@ -5,7 +5,17 @@ ENV ROOT="/myapp" \
     LANG=C.UTF-8  \
     TZ=Asia/Tokyo
 
-RUN apk add --update-cache --no-cache
+RUN apk update && \
+    apk add --no-cache \
+        gcc \
+        g++ \
+        libc-dev \
+        libxml2-dev \
+        linux-headers \
+        make && \
+    apk add --virtual build-packs --no-cache \
+        build-base \
+        curl-dev
 
 WORKDIR ${ROOT}
 COPY Gemfile ${ROOT}
@@ -17,7 +27,7 @@ COPY . ${ROOT}
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["sh", "/usr/bin/entrypoint.sh"]
 EXPOSE 3000
 
 CMD ["rails", "server", "-b", "0.0.0.0"]
