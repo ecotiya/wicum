@@ -1,4 +1,4 @@
-FROM ruby:3.0.2-alpine3.14
+FROM ruby:2.7.2-alpine3.12
 LABEL maintainer="ghqyydf829@gmail.com"
 
 ENV ROOT="/myapp" \
@@ -12,7 +12,9 @@ RUN apk update && \
         libc-dev \
         libxml2-dev \
         linux-headers \
-        make && \
+        make \
+        mysql-client \
+        mysql-dev && \
     apk add --virtual build-packs --no-cache \
         build-base \
         curl-dev
