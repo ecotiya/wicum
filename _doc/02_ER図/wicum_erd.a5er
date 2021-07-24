@@ -1,0 +1,438 @@
+﻿# A5:ER FORMAT:15
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright © 2007 m.matsubara
+# A5:SQL Mk-2 Version 2.16.0 Copyright © 1997 - 2021 m.matsubara
+#  https://a5m2.mmatsubara.com
+
+[Manager]
+ProjectName=wicum
+Author=ecotiya
+MaxEntityRowShow=1000
+ReadOnlyRecommend=1
+Page=ER図
+PageInfo="ER図",7,"A3Landscape",$FFFFFF
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=7
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Meiryo UI
+FontSize=6
+PaperSize=A4Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+RDBMSType=5
+RDBMSTypeName=MySQL
+GenerateDropTableStatement=1
+DropTableIfExists=1
+ForceQuoteIdentifier=1
+CreateFk=1
+CommonField="登録ユーザID","created_userid","bigint","NOT NULL",,"","",$FFFFFFFF
+CommonField="更新ユーザID","update_userid","bigint","NOT NULL",,"","",$FFFFFFFF
+CommonField="登録日時","created_at","datetime","NOT NULL",,"","",$FFFFFFFF
+CommonField="更新日時","updated_at","datetime","NOT NULL",,"","",$FFFFFFFF
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+UpperCaseKeyword=1
+CreateOrder=Dependent
+ShowTag=1
+ShowCommonAttributes=1
+
+[Entity]
+PName=m_categorys
+LName=問い合わせカテゴリマスタ
+Comment=
+TableOption=
+Page=ER図
+Left=2450
+Top=1100
+Field="カテゴリコード","category_code","varchar(255)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="カテゴリ名称","category_name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="要望フラグ","request_flg","boolean","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20210623212907
+Position="ER図",2450,1100
+ZOrder=-2
+
+[Entity]
+PName=m_urgencys
+LName=問い合わせ緊急度マスタ
+Comment=
+TableOption=
+Page=ER図
+Left=1650
+Top=1550
+Field="緊急度コード","urgency_code","varchar(255)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="緊急度名称","urgency_name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="緊急度レベル","urgency_level","int","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20210623212928
+Position="ER図",1650,1550
+ZOrder=-6
+
+[Entity]
+PName=m_states
+LName=タスク状態マスタ
+Comment=
+TableOption=
+Page=ER図
+Left=150
+Top=1900
+Field="状態コード","status_code","varchar(255)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="状態名称","state_name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="完了フラグ","complete_flg","boolean","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20210623111956
+Position="ER図",150,1900
+ZOrder=-5
+
+[Entity]
+PName=t_inquiry_lists
+LName=問い合わせ一覧
+Comment=
+TableOption=
+Page=ER図
+Left=1600
+Top=1050
+Field="問い合わせID","inquiry_id","bigint auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="カテゴリコード","category_code","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="緊急度コード","urgency_code","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="件名","subject","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="内容","content","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="依頼日時","request_datetime","datetime","NOT NULL",,"","",$FFFFFFFF,""
+Index=fk_m_categorys_t_inquiry_lists_category_code_idx=0,category_code
+Index=fk_m_urgencys_t_inquiry_lists_urgency_code_idx=0,urgency_code
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20210623212340
+Position="ER図",1600,1050
+ZOrder=-7
+
+[Entity]
+PName=t_task_lists
+LName=タスク一覧
+Comment=
+TableOption=
+Page=ER図
+Left=100
+Top=1250
+Field="タスクID","task_id","bigint auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="ユーザID","user_id","bigint","NOT NULL",,"","",$FFFFFFFF,""
+Field="大分類ID","big_classify_id","bigint","NOT NULL",,"","",$FFFFFFFF,""
+Field="中分類ID","mid_classify_id","bigint","NOT NULL",,"","",$FFFFFFFF,""
+Field="状態コード","status_code","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="タイトル","title","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="内容","content","varchar(255)",,,"","",$FFFFFFFF,""
+Field="完了予定日時","completion_datetime","datetime",,,"","",$FFFFFFFF,""
+Field="リマインダー日時","remind_datetime","datetime",,,"","",$FFFFFFFF,""
+Field="完了フラグ","completion_flg","boolean","NOT NULL",,"","",$FFFFFFFF,""
+Index=fk_m_states_t_task_lists_status_code_idx=0,status_code
+Index=fk_t_task_big_classifys_t_task_lists_big_classify_id_idx=0,big_classify_id
+Index=fk_t_task_mid_classifys_t_task_lists_mid_classify_id_idx=0,mid_classify_id
+Index=fk_t_users_t_task_lists_user_id_idx=0,user_id
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20210623213001
+Position="ER図",100,1250,600,263
+ZOrder=-11
+
+[Entity]
+PName=t_task_big_classifys
+LName=タスク大分類一覧
+Comment=
+TableOption=
+Page=ER図
+Left=900
+Top=1250
+Field="大分類ID","big_classify_id","bigint auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="大分類名称","big_classify_name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20210623111128
+Position="ER図",900,1250
+ZOrder=-10
+
+[Entity]
+PName=t_subtask_lists
+LName=サブタスク一覧
+Comment=
+TableOption=
+Page=ER図
+Left=900
+Top=1850
+Field="サブタスクID","sub_task_id","bigint auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="タスクID","task_id","bigint","NOT NULL",,"","",$FFFFFFFF,""
+Field="状態コード","status_code","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="タイトル","title","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="内容","content","varchar(255)",,,"","",$FFFFFFFF,""
+Field="完了予定日時","completion_datetime","datetime",,,"","",$FFFFFFFF,""
+Field="リマインダー日時","remind_datetime","datetime",,,"","",$FFFFFFFF,""
+Field="完了フラグ","completion_flg","boolean","NOT NULL",,"","",$FFFFFFFF,""
+Index=fk_t_task_lists_idx=0,task_id
+Index=fk_m_states_idx=0,status_code
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20210623213008
+Position="ER図",900,1850
+ZOrder=-9
+
+[Entity]
+PName=t_users
+LName=ユーザ一覧
+Comment=
+TableOption=
+Page=ER図
+Left=100
+Top=300
+Field="ユーザID","user_id","bigint auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="ユーザ名","user_name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="メールアドレス","mail_address","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="パスワード","password","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="パスワード確認","password_confirmation","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="管理者フラグ","admin","boolean","NOT NULL",,"","",$FFFFFFFF,""
+Field="アイコン","icon","varchar(255)",,,"","",$FFFFFFFF,""
+Field="仮登録フラグ","temp_regist_flg","boolean","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20210629231647
+Position="ER図",100,300
+ZOrder=-13
+
+[Entity]
+PName=t_task_mid_classifys
+LName=タスク中分類一覧
+Comment=
+TableOption=
+Page=ER図
+Left=900
+Top=1600
+Field="中分類ID","mid_classify_id","bigint auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="中分類名称","mid_classify_name","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20210623111133
+Position="ER図",900,1600,529,67
+ZOrder=-12
+
+[Relation]
+Entity1=t_task_big_classifys
+Entity2=t_task_lists
+RelationType1=1
+RelationType2=3
+Fields1=big_classify_id
+Fields2=big_classify_id
+Cardinarity1=
+Cardinarity2=
+Position="ER図",0,3961,9500,2041,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=396
+Bar2=950
+Bar3=204
+TermPos1=R
+TermPos2=R
+ZOrder=-21
+
+[Relation]
+Entity1=t_task_lists
+Entity2=t_subtask_lists
+RelationType1=1
+RelationType2=3
+Fields1=task_id
+Fields2=task_id
+Cardinarity1=
+Cardinarity2=
+Position="ER図",0,8238,5038,2143,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=824
+Bar2=504
+Bar3=214
+TermPos1=R
+TermPos2=R
+ZOrder=-22
+
+[Relation]
+Entity1=t_task_mid_classifys
+Entity2=t_task_lists
+RelationType1=1
+RelationType2=3
+Fields1=mid_classify_id
+Fields2=mid_classify_id
+Cardinarity1=
+Cardinarity2=
+Position="ER図",0,4913,7232,4355,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=491
+Bar2=723
+Bar3=436
+TermPos1=R
+TermPos2=R
+ZOrder=-23
+
+[Relation]
+Entity1=t_users
+Entity2=t_task_lists
+RelationType1=1
+RelationType2=3
+Fields1=user_id
+Fields2=user_id
+Cardinarity1=
+Cardinarity2=
+Position="ER図",0,4878,9500,3872,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=488
+Bar2=950
+Bar3=387
+TermPos1=R
+TermPos2=R
+ZOrder=-24
+
+[Relation]
+Entity1=m_states
+Entity2=t_task_lists
+RelationType1=1
+RelationType2=3
+Fields1=status_code
+Fields2=status_code
+Cardinarity1=
+Cardinarity2=
+Position="ER図",0,5319,9500,4510,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=532
+Bar2=950
+Bar3=451
+TermPos1=R
+TermPos2=R
+ZOrder=-19
+
+[Relation]
+Entity1=m_categorys
+Entity2=t_inquiry_lists
+RelationType1=1
+RelationType2=3
+Fields1=category_code
+Fields2=category_code
+Cardinarity1=
+Cardinarity2=
+Position="ER図",0,6585,6513,4609,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=658
+Bar2=651
+Bar3=461
+TermPos1=R
+TermPos2=R
+ZOrder=-15
+
+[Relation]
+Entity1=m_states
+Entity2=t_subtask_lists
+RelationType1=1
+RelationType2=3
+Fields1=status_code
+Fields2=status_code
+Cardinarity1=
+Cardinarity2=
+Position="ER図",0,6116,9500,4360,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=612
+Bar2=950
+Bar3=436
+TermPos1=R
+TermPos2=R
+ZOrder=-18
+
+[Shape]
+Page=ER図
+Left=47
+Top=37
+ZOrder=1
+Width=611
+Height=126
+LineColor=$FF0000
+BrushColor=$FAEBB4
+ShapeType=RoundRect
+Text=wicum ER図
+FontName=Meiryo UI
+FontSize=16
+FontColor=$800000
+ImageFileName=
+
+[Relation]
+Entity1=m_urgencys
+Entity2=t_inquiry_lists
+RelationType1=1
+RelationType2=3
+Fields1=urgency_code
+Fields2=urgency_code
+Cardinarity1=
+Cardinarity2=
+Position="ER図",0,6028,3972,5997,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=603
+Bar2=397
+Bar3=600
+TermPos1=R
+TermPos2=R
+ZOrder=2
+
+[Entity]
+PName=m_questions
+LName=よくある質問マスタ
+Comment=
+TableOption=
+Page=ER図
+Left=1150
+Top=350
+Field="質問ID","questions_id","bigint auto_increment","NOT NULL",0,"","",$FFFFFFFF,""
+Field="タイトル","title","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
+Field="内容","content","text","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20210628124658
+Position="ER図",1150,350
+ZOrder=4
