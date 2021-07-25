@@ -1,29 +1,10 @@
-FROM nginx:1.13
+FROM nginx:1.15.8
 
-RUN apt-get update
-RUN apt-get install -y wget
-RUN wget https://github.com/progrium/entrykit/releases/download/v0.4.0/entrykit_0.4.0_linux_x86_64.tgz
-RUN tar -xvzf entrykit_0.4.0_linux_x86_64.tgz
-RUN rm entrykit_0.4.0_linux_x86_64.tgz
-RUN mv entrykit /usr/local/bin/
-RUN entrykit --symlink
+# インクルード用のディレクトリ内を削除
+RUN rm -f /etc/nginx/conf.d/*
 
-# conf.dのデフォルトファイルを削除し、各種設定ファイルをコピー
-RUN rm /etc/nginx/conf.d/*
-COPY etc/nginx/nginx.conf.tmpl /etc/nginx/
-COPY etc/nginx/conf.d/ /etc/nginx/conf.d/
+# Nginxの設定ファイルをコンテナにコピー
+COPY nginx.conf /etc/nginx/myapp.conf
 
-# entrykitでテンプレートから設定ファイルを生成
-ENTRYPOINT [ \
-  "render", \
-      "/etc/nginx/nginx.conf", \
-      "--", \
-  "render", \
-      "/etc/nginx/conf.d/upstream.conf", \
-      "--", \
-  "render", \
-      "/etc/nginx/conf.d/public.conf", \
-      "--" \
-]
-
-CMD ["nginx", "-g", "daemon off;"]
+# ビルド完了後にNginxを起動
+CMD /usr/sbin/nginx -g 'daemon off;' -c /etc/nginx/myapp.conf
