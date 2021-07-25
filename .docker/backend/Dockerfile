@@ -14,7 +14,8 @@ RUN apk update && \
         linux-headers \
         make \
         mysql-client \
-        mysql-dev && \
+        mysql-dev \
+        tzdata && \
     apk add --virtual build-packs --no-cache \
         build-base \
         curl-dev

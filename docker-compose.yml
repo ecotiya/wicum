@@ -1,6 +1,5 @@
 version: '3.8'
 services:
-  #MySQL
   db:
     image: mysql:8.0
     container_name: wicum_mysql_host
@@ -46,7 +45,7 @@ services:
       dockerfile: ../.docker/frontend/Dockerfile
     command: sh -c 'cd frontend && yarn start'
     volumes:
-      - ./front:/usr/src/app
+      - ./frontend:/usr/src/app
     ports:
       - 8000:8000
     tty: true
