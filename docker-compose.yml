@@ -43,7 +43,7 @@ services:
     build:
       context: ./frontend
       dockerfile: ../.docker/frontend/Dockerfile
-    command: sh -c 'cd frontend && yarn start'
+    command: sh -c 'yarn start'
     volumes:
       - ./frontend:/usr/src/app
     ports:
