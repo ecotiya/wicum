@@ -18,7 +18,7 @@ services:
     container_name: wicum_nginx_container
     build:
       context: ./nginx
-      dockerfile: Dockerfile
+      dockerfile: ../.docker/nginx/Dockerfile
     restart: on-failure
     environment:
       WORKER_PROCESSES: 2
@@ -41,7 +41,7 @@ services:
     container_name: wicum_frontend_container
     build:
       context: ./frontend
-      dockerfile: Dockerfile
+      dockerfile: ../.docker/frontend/Dockerfile
     command: sh -c 'cd frontend && yarn start'
     volumes:
       - ./:/usr/src/app
@@ -55,7 +55,7 @@ services:
     container_name: wicum_backend_container
     build:
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: ../.docker/backend/Dockerfile
     command: bash -c rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'
     tty: true
     stdin_open: true
