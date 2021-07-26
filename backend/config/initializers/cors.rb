@@ -12,8 +12,10 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
 
     # 疎通を許可するリソースファイル
     resource "*",
-      # 疎通を許可するHTTPヘッダー
+      # 疎通を許可するHTTPヘッダー(リクエスト)
       headers: :any,
+      # 疎通を許可するHTTPヘッダー(レスポンス)
+      expose: ["access-token", "expiry", "token-type", "uid", "client"],
       # 疎通を許可するHTTPメソッド(optionsはリクエスト許可チェックなので削除NG)
       methods: [:get, :post, :put, :patch, :delete, :options, :head]
       # Cookieを利用するか否か
