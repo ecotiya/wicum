@@ -7,6 +7,7 @@ ENV ROOT="/myapp" \
 
 RUN apk update && \
     apk add --no-cache \
+        curl \
         gcc \
         g++ \
         libc-dev \
