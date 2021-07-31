@@ -9,7 +9,7 @@ module.exports = {
     "prettier", // prettierのextendsは他のextendsより後に記述する
   ],
   plugins: ["@typescript-eslint"],
-  parser: "@typescript-eslint/parser",
+  parser: ["@typescript-eslint/parser"],
   parserOptions: {
     "sourceType": "module",
     "project": "./tsconfig.json" // TypeScriptのLint時に参照するconfigファイルを指定
