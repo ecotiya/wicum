@@ -1,0 +1,33 @@
+■re-ducksパターン説明用テキスト
+
+【参考サイト】
+　・説明１（英語）
+　　https://www.freecodecamp.org/news/scaling-your-redux-app-with-ducks-6115955638be/
+　　https://github.com/alexnm/re-ducks
+
+　・説明２（日本語）
+　　https://superhahnah.com/redux-directory-petterns/
+　　https://tech.playground.style/javascript/re-ducks/
+
+
+【ディレクトリ構成】
+  re-ducks/
+  ├── actions.tsx
+  ├── index.tsx
+  ├── operations.tsx
+  ├── reducers.tsx
+  ├── selectors.tsx
+  ├── tests.tsx
+  ├── types.tsx
+  ├── utils.tsx
+
+
+【説明】
+  ・actions.tsx    … Redux Actionのみを記述する。
+  ・index.tsx      … エントリーポイント。
+  ・operations.tsx … 非同期処理を制御するようなActionのコードを記述。rails ⇔ reactのやり取りはここでする？ axios
+  ・reducers.tsx   … Switch文のみ。発行されたActionを受け取り、Switch構文内でaction.typeに応じてStoreにstateを渡す。
+  ・selectors.tsx  … Storeに保存されているstateを参照する関数を提供する。
+  ・tests.tsx      … test用
+  ・types.tsx      … action, operation, reducersなどで使用する型を定義。（typescriptで記述する場合に使用）
+  ・utils.tsx      … ????
