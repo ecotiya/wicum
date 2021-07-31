@@ -1,27 +1,40 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
+    "target": "es2020",                           /* 出力バージョン (書き方分からないのでes2020のリファレンス参照) */
+    "lib": [                                      /* コンパイルする際に使用するライブラリ */
       "dom",
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "baseUrl": "./src"                             /* Base directory to resolve non-absolute module names. */
+    "allowJs": true,                              /* .js .jsxをコンパイル対象に含む否か */
+    "skipLibCheck": true,                         /* *.d.ts ファイルに対する型チェックをスキップするか否か */
+    "esModuleInterop": true,                      /* コンパイル時にヘルパーメソッドを生成するか否か */
+    "allowSyntheticDefaultImports": true,         /* デフォルトのエクスポートがないモジュールからのデフォルトのインポートを許可します。これはコードの出力には影響しません。型検査だけです。 */
+    "module": "esnext",                           /* モジュールコード生成: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015',または 'ESNext'を指定します。 */
+    "moduleResolution": "node",                   /* tscのモジュール解決の方法 */
+    "resolveJsonModule": true,                    /* jsonファイルから型解決した状態で値を取得するか否か　型定義したinterfaceを仲介せず直接、config.jsonってのを呼び出せるらしい。 */
+    "isolatedModules": true,                      /* 全てのコンパイル対象ファイルを単一のモジュールとしてコンパイルする。全ての対象ファイルにexport構文を含む必要がある。  */
+    "noEmit": true,                               /* コンパイル結果を出力するか否か */
+    "jsx": "react-jsx",                           /* コンパイルファイルの出力形式  */
+    "baseUrl": "./src",                           /* 相対的なカレントディレクトリをどこにするか指定 */
+    "outDir": "./dist",                           /* コンパイルファイル出力ディレクトリ */
+
+    /* ========== コンパイル時の構文チェック ========== */
+    "strict": true,                               /* 複数のエラーチェックをONにするか否か */
+    "forceConsistentCasingInFileNames": true,　   /* importしたファイルパスの文字列で大文字小文字を区別するか否か  */
+    "noUnusedLocals": true,                       /* 未使用変数をコンパイルエラーにするか否か */
+    "noUnusedParameters": true,                   /* 関数の未使用引数をコンパイルエラーにするか否か */
+    "noImplicitReturns": true,                    /* 関数内の条件分岐で明示的なreturn文ない場合、コンパイルエラーにするか否か */
+    "noFallthroughCasesInSwitch": true            /* switch文のcase内でbreakが無い場合にコンパイルエラーにするか否か */
   },
-  "include": [
-    "src"
+  "include": [                                     /* コンパイル対象ファイルを指定 */
+    "src/**/*"
+  ],
+  "exclude": [                                     /* コンパイル対象外ファイルを指定 */
+    "node_modules",
+    "bower_components",
+    "jspm_packages",
+    "./dist",
+    "src/duck/.template"
   ]
 }
