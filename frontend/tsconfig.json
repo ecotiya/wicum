@@ -35,6 +35,7 @@
     "bower_components",
     "jspm_packages",
     "./dist",
-    "src/re-ducks/.template"
+    "src/re-ducks/.template",
+    "src/reportWebVitals.ts"
   ]
 }

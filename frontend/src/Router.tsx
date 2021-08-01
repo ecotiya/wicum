@@ -1,11 +1,15 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+// import React from 'react';
+// import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import {Home} from './components/templates/index';
 
 const Router = () => {
   return (
-    <Switch>
-      <Route exact path={"/"} component={Home} />
-    </Switch>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path={"/"} component={Home} />
+      </Switch>
+    </BrowserRouter>
   );
 };
 

@@ -1,4 +1,4 @@
-import React from "react";
+// import React from 'react';
 import Router from './Router';
 
 const App = () => {
@@ -9,4 +9,4 @@ const App = () => {
   )
 }
 
-export default App; 
+export default App;
