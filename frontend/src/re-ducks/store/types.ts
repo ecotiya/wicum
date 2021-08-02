@@ -4,7 +4,7 @@ export interface InitialStateModel {
   users: {
     isSignedIn: boolean;
     role:  string;
-    uid: string;
+    userid: string;
     username: string;
   }
 }

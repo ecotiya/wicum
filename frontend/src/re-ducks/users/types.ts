@@ -7,6 +7,6 @@ export interface UsersAction extends Action {
 export interface UserState {
   isSignedIn: boolean;
   role:  string;
-  uid: string;
+  userid: string;
   username: string;
 }

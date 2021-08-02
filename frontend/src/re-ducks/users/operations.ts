@@ -7,7 +7,7 @@ export const signIn = () => {
     dispatch(signInAction({
       isSignedIn: true,
       role: "LoginRole",
-      uid: "LoginUid",
+      userid: "LoginUserid",
       username: "LoginUser"
     }));
 

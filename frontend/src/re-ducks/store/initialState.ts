@@ -5,7 +5,7 @@ const initialState:InitialStateModel = {
   users: {
     isSignedIn: false,
     role:  "",
-    uid: "",
+    userid: "",
     username: "guest"
   }
 };
