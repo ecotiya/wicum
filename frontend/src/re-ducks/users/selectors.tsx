@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
+import { InitialStateModel } from '../store/types';
 
-const usersSelector = (state:any) => state.users;
+const usersSelector = (state:InitialStateModel) => state.users;
 
 export const getUserId = createSelector (
   [usersSelector],

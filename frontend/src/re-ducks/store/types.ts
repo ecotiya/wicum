@@ -1,4 +1,6 @@
-export interface initialStateModel {
+import { UsersAction } from '../users/types';
+
+export interface InitialStateModel {
   users: {
     isSignedIn: boolean;
     role:  string;
@@ -6,3 +8,6 @@ export interface initialStateModel {
     username: string;
   }
 }
+
+export type Action =
+  | UsersAction;

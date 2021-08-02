@@ -1,11 +1,12 @@
 // import React from 'react';
 import { signIn, getUserId, getUserName } from '../../re-ducks/users/index';
+import { InitialStateModel } from '../../re-ducks/store/types'
 import { useSelector, useDispatch } from 'react-redux';
 
 const Home = () => {
 
   const dispatch = useDispatch();
-  const selector = useSelector(state => state);
+  const selector = useSelector((state: InitialStateModel) => state);
   const uid = getUserId(selector);
   const username = getUserName(selector);
 
