@@ -1,4 +1,4 @@
-import { signInAction } from "./index";
+import { signInAction, signOutAction } from "./index";
 import { push } from 'connected-react-router';
 
 export const signIn = () => {
@@ -11,6 +11,18 @@ export const signIn = () => {
       username: "LoginUser"
     }));
 
+    dispatch(push("/"));
+  }
+}
+
+export const signOut = () => {
+  return async (dispatch:any) => {
+
+    // Local Storageの初期化
+    localStorage.clear()
+
+    // Store Userの初期化
+    dispatch(signOutAction());
     dispatch(push("/"));
   }
 }

@@ -1,5 +1,5 @@
 // import React from 'react';
-import { signIn, getUserId, getUserName } from '../../re-ducks/users/index';
+import { signIn, signOut, getUserId, getUserName } from '../../re-ducks/users/index';
 import { InitialStateModel } from '../../re-ducks/store/types'
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -16,6 +16,7 @@ const Home = () => {
       <p>userId:{uid}</p>
       <p>userName:{username}</p>
       <button onClick={() => dispatch(signIn())}>SIGN IN</button>
+      <button onClick={() => dispatch(signOut())}>SIGN OUT</button>
     </div>
   );
 };
