@@ -1,5 +1,7 @@
+import { userState } from './types'
+
 export const SIGN_IN = "SIGN_IN";
-export const signInAction = (userState:any) => {
+export const signInAction = (userState:userState) => {
   return {
     type: "SIGN_IN",
     payload: {

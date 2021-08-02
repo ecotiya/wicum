@@ -1,4 +1,6 @@
-const initialState = {
+import { initialStateModel } from './types';
+
+const initialState:initialStateModel = {
 
   users: {
     isSignedIn: false,
