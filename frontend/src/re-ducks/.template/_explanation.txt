@@ -23,7 +23,7 @@
 
 
 【説明】
-  ・actions.tsx    … Redux Actionのみを記述する。
+  ・actions.tsx    … ReduxのActionTypeのみを記述する。アプリからstoreへデータを送信するためのpayloadを渡す役割。純粋にデータだけを渡したい。どのStateをどう変更するかはreducersの役割。
   ・index.tsx      … エントリーポイント。
   ・operations.tsx … 非同期処理を制御するようなActionのコードを記述。rails ⇔ reactのやり取りはここでする？ axios
   ・reducers.tsx   … Switch文のみ。発行されたActionを受け取り、Switch構文内でaction.typeに応じてStoreにstateを渡す。

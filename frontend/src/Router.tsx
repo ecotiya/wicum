@@ -7,6 +7,8 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Switch>
+        // Switch && Route exact path … pathが完全一致したときにコンポーネントを呼び出す。
+        // pathの値は動的に変更可能。/posts/:id
         <Route exact path={"/"} component={Home} />
       </Switch>
     </BrowserRouter>

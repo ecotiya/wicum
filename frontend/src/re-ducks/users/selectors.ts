@@ -1,3 +1,4 @@
+// storeで管理しているstateを参照する関数集合体
 import { createSelector } from 'reselect';
 import { InitialStateModel } from '../store/types';
 

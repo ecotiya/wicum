@@ -5,6 +5,7 @@ import thunk from 'redux-thunk';
 
 const storeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+// history…ブラウザで現在どのURLにいるか保持している値。
 export default function createStore(history:any) {
   return reduxCreateStore(
     combineReducers({
