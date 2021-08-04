@@ -11,10 +11,10 @@ export const store = createStore(history);
 
 import reportWebVitals from './reportWebVitals';
 
+// Provider…アプリケーション全体でstoreの情報を参照できるようにする。
+// ConnectedRouter…Appコンポーネントで発生したURL変更履歴を管理する。
 ReactDOM.render(
-  // Provider…アプリケーション全体でstoreの情報を参照できるようにする。
   <Provider store={store}>
-    // ConnectedRouter…Appコンポーネントで発生したURL変更履歴を管理する。
     <ConnectedRouter history={history}>
       <App />
     </ConnectedRouter>
