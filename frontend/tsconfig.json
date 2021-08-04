@@ -22,7 +22,7 @@
     /* ========== コンパイル時の構文チェック ========== */
     "strict": true,                               /* 複数のエラーチェックをONにするか否か */
     "forceConsistentCasingInFileNames": true,　   /* importしたファイルパスの文字列で大文字小文字を区別するか否か  */
-    "noUnusedLocals": true,                       /* 未使用変数をコンパイルエラーにするか否か */
+    "noUnusedLocals": false,                       /* 未使用変数をコンパイルエラーにするか否か */
     "noUnusedParameters": true,                   /* 関数の未使用引数をコンパイルエラーにするか否か */
     "noImplicitReturns": true,                    /* 関数内の条件分岐で明示的なreturn文ない場合、コンパイルエラーにするか否か */
     "noFallthroughCasesInSwitch": true            /* switch文のcase内でbreakが無い場合にコンパイルエラーにするか否か */
