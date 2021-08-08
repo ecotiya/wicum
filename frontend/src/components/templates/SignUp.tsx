@@ -1,7 +1,11 @@
 import React, {useState, useCallback} from 'react';
 import {TextInput, PrimaryButton} from '../atoms/index';
+import {signUp} from '../../re-ducks/users/index';
+import { useDispatch } from 'react-redux';
 
 const SignUp = () => {
+
+  const dispatch = useDispatch();
 
   const [username, setUserName] = useState<string>(""),
         [email, setEmail] = useState<string>(""),
@@ -47,7 +51,7 @@ const SignUp = () => {
       <div className="center">
         <PrimaryButton
           label={"アカウントを登録する"}
-          onClick={() => console.log("hi!")}
+          onClick={() => dispatch(signUp(username, email, password, confirmPassword))}
         />
       </div>
     </div>
