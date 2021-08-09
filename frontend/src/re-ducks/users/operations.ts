@@ -1,23 +1,50 @@
 import { signInAction, signOutAction } from "./index";
-import { SignUpParams } from "./types";
+import { SignInParams, SignUpParams } from "./types";
 import { push } from 'connected-react-router';
-import {isValidEmailFormat, isValidRequiredInput} from "./utils";
-import applyCaseMiddleware from "axios-case-converter";
-import axios from "axios";
+import {isValidEmailFormat, isValidRequiredInput, client, client_config} from "./utils";
 import Cookies from "js-cookie"
 
-export const signIn = () => {
+export const signIn = (email:string, password:string) => {
   return async (dispatch:any) => {
-    // ダミー処理
-    dispatch(signInAction({
-      isSignedIn: true,
-      role: "LoginRole",
-      userid: "LoginUserid",
-      username: "LoginUser",
-      email: "",
-    }));
+    // Validations
+    if(!isValidRequiredInput(email, password)) {
+        alert('必須項目が未入力です。');
+        return false
+    }
 
-    dispatch(push("/"));
+    if(!isValidEmailFormat(email)) {
+        alert('メールアドレスの形式が不正です。もう1度お試しください。')
+        return false
+    }
+
+    const params: SignInParams = {
+      email: email,
+      password: password
+    }
+
+    return client.post("auth/sign_in", params, client_config)
+    .then(response => {
+        // 成功
+        console.log("registration res", response)
+        Cookies.set("_access_token", response.headers["access-token"])
+        Cookies.set("_client", response.headers["client"])
+        Cookies.set("_uid", response.headers["uid"])
+
+        dispatch(signInAction({
+          isSignedIn: true,
+          role: "",
+          userid: response.headers["uid"],
+          username: "loginTest",
+          email: "loginEmail",
+        }));
+
+        // TEST用
+        dispatch(push("/signupsuccess"));
+    }).catch(error => {
+        // 失敗
+        console.log("registration error", error)
+        alert('サインイン処理に失敗しました。管理者にお問い合わせください。')
+    })
   }
 }
 
@@ -34,20 +61,20 @@ export const signUp = (username:string, email:string, password:string, confirmPa
     // Validations
     if(!isValidRequiredInput(username, email, password, confirmPassword)) {
         alert('必須項目が未入力です。');
-        return false
+        return false;
     }
 
     if(!isValidEmailFormat(email)) {
-        alert('メールアドレスの形式が不正です。もう1度お試しください。')
-        return false
+        alert('メールアドレスの形式が不正です。もう1度お試しください。');
+        return false;
     }
     if (password !== confirmPassword) {
-        alert('パスワードが一致しません。もう1度お試しください。')
-        return false
+        alert('パスワードが一致しません。もう1度お試しください。');
+        return false;
     }
     if (password.length < 6) {
-        alert('パスワードは6文字以上で入力してください。')
-        return false
+        alert('パスワードは6文字以上で入力してください。');
+        return false;
     }
 
     const params: SignUpParams = {
@@ -57,17 +84,7 @@ export const signUp = (username:string, email:string, password:string, confirmPa
       passwordConfirmation: confirmPassword
     }
 
-    const client = applyCaseMiddleware(axios.create({
-      baseURL: "http://localhost:3000/api/v1"}))
-
-    const config = {
-      headers: { 'Content-Type': 'application/json' },
-      withCredentials: true,
-      ignoreHeaders: true
-    };
-
-    // return client.post("auth/sign_in", params)
-    return client.post("auth", params, config)
+    return client.post("auth", params, client_config)
     .then(response => {
         // 成功
         console.log("registration res", response)
@@ -83,6 +100,7 @@ export const signUp = (username:string, email:string, password:string, confirmPa
           email: email,
         }));
 
+        // TEST用
         dispatch(push("/signupsuccess"));
     }).catch(error => {
         // 失敗

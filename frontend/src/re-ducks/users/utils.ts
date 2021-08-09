@@ -1,3 +1,6 @@
+import applyCaseMiddleware from "axios-case-converter";
+import axios from "axios";
+
 /**
  * Validate input email
  * @param email
@@ -23,3 +26,14 @@ export const isValidRequiredInput = (...args:any) => {
     }
     return validator;
 };
+
+// rails-react 疎通用 ================ Start
+export const client = applyCaseMiddleware(axios.create({
+  baseURL: "http://localhost:3000/api/v1"}));
+
+export const client_config = {
+  headers: { 'Content-Type': 'application/json' },
+  withCredentials: true,
+  ignoreHeaders: true
+};
+// rails-react 疎通用 ================ End

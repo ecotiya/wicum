@@ -15,8 +15,6 @@ const Home = () => {
       <h2>Home</h2>
       <p>userId:{userid}</p>
       <p>userName:{username}</p>
-      <button onClick={() => dispatch(signIn())}>SIGN IN</button>
-      <button onClick={() => dispatch(signOut())}>SIGN OUT</button>
     </div>
   );
 };

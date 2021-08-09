@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_25_233458) do
+ActiveRecord::Schema.define(version: 2021_08_09_070246) do
 
   create_table "users", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 2021_07_25_233458) do
     t.text "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_admin", default: false, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
