@@ -6,10 +6,11 @@ const initialState:InitialStateModel = {
   // 下記、カテゴリ毎にre-ducksのディレクトリを切る。
   users: {
     isSignedIn: false,
-    role:  "",
-    userid: "",
-    username: "guest",
+    isAdmin: false,
+    uid: "",
+    name: "guest",
     email: "",
+    image: "",
   }
 };
 

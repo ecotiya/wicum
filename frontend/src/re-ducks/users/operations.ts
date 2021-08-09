@@ -1,5 +1,5 @@
 import { signInAction, signOutAction } from "./index";
-import { SignInParams, SignUpParams } from "./types";
+import { SignInParams, SignUpParams, UserData } from "./types";
 import { push } from 'connected-react-router';
 import {isValidEmailFormat, isValidRequiredInput, client, client_config} from "./utils";
 import Cookies from "js-cookie"
@@ -29,13 +29,15 @@ export const signIn = (email:string, password:string) => {
         Cookies.set("_access_token", response.headers["access-token"])
         Cookies.set("_client", response.headers["client"])
         Cookies.set("_uid", response.headers["uid"])
+        const userdata:UserData = response.data.data;
 
         dispatch(signInAction({
           isSignedIn: true,
-          role: "",
-          userid: response.headers["uid"],
-          username: "loginTest",
-          email: "loginEmail",
+          isAdmin: userdata.isAdmin,
+          uid: userdata.uid,
+          name: userdata.name,
+          email: userdata.email,
+          image: userdata.image,
         }));
 
         // TEST用
@@ -91,13 +93,15 @@ export const signUp = (username:string, email:string, password:string, confirmPa
         Cookies.set("_access_token", response.headers["access-token"])
         Cookies.set("_client", response.headers["client"])
         Cookies.set("_uid", response.headers["uid"])
+        const userdata:UserData = response.data.data;
 
         dispatch(signInAction({
           isSignedIn: true,
-          role: "",
-          userid: response.headers["uid"],
-          username: username,
-          email: email,
+          isAdmin: userdata.isAdmin,
+          uid: userdata.uid,
+          name: userdata.name,
+          email: userdata.email,
+          image: userdata.image,
         }));
 
         // TEST用

@@ -3,10 +3,11 @@ import { UsersAction } from '../users/types';
 export interface InitialStateModel {
   users: {
     isSignedIn: boolean;
-    role:  string;
-    userid: string;
-    username: string;
+    isAdmin: boolean;
+    uid: string;
+    name: string;
     email: string;
+    image: string
   }
 }
 

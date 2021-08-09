@@ -6,15 +6,25 @@ const usersSelector = (state:InitialStateModel) => state.users;
 
 export const getUserId = createSelector (
   [usersSelector],
-  state => state.userid
+  state => state.uid
 )
 
 export const getUserName = createSelector (
   [usersSelector],
-  state => state.username
+  state => state.name
 )
 
-export const getSignedIn = createSelector (
+export const getEmail = createSelector (
+  [usersSelector],
+  state => state.email
+)
+
+export const isSignedInState = createSelector (
   [usersSelector],
   state => state.isSignedIn
+)
+
+export const isAdminState = createSelector (
+  [usersSelector],
+  state => state.isAdmin
 )

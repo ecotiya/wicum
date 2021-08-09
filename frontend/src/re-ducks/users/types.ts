@@ -7,14 +7,15 @@ export interface UsersAction extends Action {
 // ユーザー
 export interface UserState {
   isSignedIn: boolean;
-  role:  string;
-  userid: string;
-  username: string;
+  isAdmin: boolean;
+  uid: string;
+  name: string;
   email: string;
+  image?: string;
 }
 
 // ユーザー
-export interface User {
+export interface UserData {
   id: number
   uid: string
   provider: string
