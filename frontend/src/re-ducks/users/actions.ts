@@ -11,7 +11,8 @@ export const signInAction = (userState:UserState) => {
       isSignedIn: true,
       role: userState.role,
       userid: userState.userid,
-      username: userState.username
+      username: userState.username,
+      email: userState.email,
     }
   }
 };
@@ -25,6 +26,7 @@ export const signOutAction = () => {
       role: "",
       userid: "",
       username: "",
+      email: "",
     }
   }
 };

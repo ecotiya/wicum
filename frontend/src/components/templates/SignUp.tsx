@@ -41,7 +41,7 @@ const SignUp = () => {
         rows={1} value={email} type={"email"} onChange={inputEmail}
       />
       <TextInput
-        fullWidth={true} label={"パスワード"} multiline={false} required={true}
+        fullWidth={true} label={"パスワード(6文字以上の英数字)"} multiline={false} required={true}
         rows={1} value={password} type={"password"} onChange={inputPassword}
       />
       <TextInput

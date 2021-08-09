@@ -13,7 +13,8 @@ export const signIn = () => {
       isSignedIn: true,
       role: "LoginRole",
       userid: "LoginUserid",
-      username: "LoginUser"
+      username: "LoginUser",
+      email: "",
     }));
 
     dispatch(push("/"));
@@ -49,24 +50,25 @@ export const signUp = (username:string, email:string, password:string, confirmPa
         return false
     }
 
-    const options = {
-      ignoreHeaders: true
+    const params: SignUpParams = {
+      name: username,
+      email: email,
+      password: password,
+      passwordConfirmation: confirmPassword
     }
 
     const client = applyCaseMiddleware(axios.create({
-      baseURL: "http://localhost:3000/api/v1"
-    }), options)
+      baseURL: "http://localhost:3000/api/v1"}))
+
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+      ignoreHeaders: true
+    };
 
     // return client.post("auth/sign_in", params)
-    return client.post("auth",
-        {
-          username,
-          email,
-          password,
-          confirmPassword
-        },
-        { withCredentials: true }
-    ).then(response => {
+    return client.post("auth", params, config)
+    .then(response => {
         // 成功
         console.log("registration res", response)
         Cookies.set("_access_token", response.headers["access-token"])
@@ -75,15 +77,17 @@ export const signUp = (username:string, email:string, password:string, confirmPa
 
         dispatch(signInAction({
           isSignedIn: true,
-          role: "LoginRole",
+          role: "",
           userid: response.headers["uid"],
-          username: username
+          username: username,
+          email: email,
         }));
 
-        dispatch(push("/"));
+        dispatch(push("/signupsuccess"));
     }).catch(error => {
         // 失敗
         console.log("registration error", error)
+        alert('アカウント登録に失敗しました。もう1度お試しください。')
     })
   }
 }

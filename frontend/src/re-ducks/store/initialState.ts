@@ -8,7 +8,8 @@ const initialState:InitialStateModel = {
     isSignedIn: false,
     role:  "",
     userid: "",
-    username: "guest"
+    username: "guest",
+    email: "",
   }
 };
 

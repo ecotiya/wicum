@@ -10,6 +10,7 @@ export interface UserState {
   role:  string;
   userid: string;
   username: string;
+  email: string;
 }
 
 // サインアップ
@@ -17,5 +18,5 @@ export interface SignUpParams {
   name: string
   email: string
   password: string
-  confirmPassword: string
+  passwordConfirmation: string
 }

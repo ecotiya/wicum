@@ -6,6 +6,7 @@ export interface InitialStateModel {
     role:  string;
     userid: string;
     username: string;
+    email: string;
   }
 }
 
