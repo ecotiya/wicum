@@ -1,6 +1,6 @@
 import * as Actions from './actions';
 import { UsersAction } from './types';
-import initialState from '../store/initialState';
+import {initialState} from '../store/initialState';
 
 // 第1引数:state…現在のstoreの状態を受け取るが、なければ初期値としてinitialState.usersの値を受け取る。
 // 第2引数:actionsでreturnしたオブジェクトリテラル。

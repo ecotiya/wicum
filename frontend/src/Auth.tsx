@@ -16,7 +16,7 @@ const Auth = ({children}:any) => {
     if (!isSignedIn) {
       dispatch(listenAuthState());
     }
-  },[dispatch, isSignedIn]);
+  },[]);
 
   if (!isSignedIn) {
     return <></>

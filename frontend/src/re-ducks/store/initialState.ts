@@ -2,7 +2,7 @@
 // アプリに必要なstateを全て記述し、別のファイルで使用可能なようにexportしておく。
 import { InitialStateModel } from './types';
 
-const initialState:InitialStateModel = {
+export const initialState:InitialStateModel = {
   // 下記、カテゴリ毎にre-ducksのディレクトリを切る。
   users: {
     isSignedIn: false,
@@ -13,5 +13,3 @@ const initialState:InitialStateModel = {
     image: "",
   }
 };
-
-export default initialState;

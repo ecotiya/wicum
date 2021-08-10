@@ -3,8 +3,6 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { UsersReducer } from "../users/index";
 import thunk from 'redux-thunk';
 
-const storeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
 // history…ブラウザで現在どのURLにいるか保持している値。
 export default function createStore(history:any) {
   return reduxCreateStore(
@@ -12,8 +10,8 @@ export default function createStore(history:any) {
       router: connectRouter(history),
       users: UsersReducer,
     }),
-    storeEnhancers(applyMiddleware(
-      routerMiddleware(history), thunk)
+    applyMiddleware(
+      routerMiddleware(history), thunk
     )
   )
 }

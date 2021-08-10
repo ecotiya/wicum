@@ -6,9 +6,9 @@ import Cookies from "js-cookie"
 
 export const listenAuthState = () => {
   return async (dispatch:any) => {
-    if (!Cookies.get("_access_token")) {
+    if (Cookies.get("_access_token")) {
       // 認証済みの場合
-      client.get('sessions', {
+      client.get('auth/sessions', {
         headers: {
           'access-token': Cookies.get("_access_token"),
           'client': Cookies.get("_client"),
@@ -61,7 +61,7 @@ export const signIn = (email:string, password:string) => {
     .then(response => {
         // 成功
         console.log("registration res", response)
-        Cookies.set("_access_token", response.headers["access-token"])
+        Cookies.set("_access_token", response.headers["accessToken"])
         Cookies.set("_client", response.headers["client"])
         Cookies.set("_uid", response.headers["uid"])
         const userdata:UserData = response.data.data;
@@ -124,7 +124,7 @@ export const signUp = (username:string, email:string, password:string, confirmPa
     .then(response => {
         // 成功
         console.log("registration res", response)
-        Cookies.set("_access_token", response.headers["access-token"])
+        Cookies.set("_access_token", response.headers["accessToken"])
         Cookies.set("_client", response.headers["client"])
         Cookies.set("_uid", response.headers["uid"])
         const userdata:UserData = response.data.data;

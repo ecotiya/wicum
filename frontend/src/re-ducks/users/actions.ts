@@ -7,16 +7,9 @@ export const signInAction = (userState:UserState) => {
   return {
     // tyoeとpayloadを記述する。
     type: "SIGN_IN",
-    payload: {
-      isSignedIn: true,
-      isAdmin: userState.isAdmin,
-      uid: userState.uid,
-      name: userState.name,
-      email: userState.email,
-      image: userState.image,
-    }
+    payload: userState
   }
-};
+}
 
 export const SIGN_OUT = "SIGN_OUT";
 export const signOutAction = () => {
