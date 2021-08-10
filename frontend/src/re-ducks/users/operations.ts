@@ -141,7 +141,7 @@ export const signUp = (username:string, email:string, password:string, confirmPa
 
 export const signOut = () => {
   return async (dispatch:any) => {
-    const res = client.delete("auth/sign_out", {
+    return client.delete("auth/sign_out", {
       headers: {
         'access-token': Cookies.get("_access_token"),
         'client': Cookies.get("_client"),
