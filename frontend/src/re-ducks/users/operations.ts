@@ -4,6 +4,41 @@ import { push } from 'connected-react-router';
 import {isValidEmailFormat, isValidRequiredInput, client, client_config} from "./utils";
 import Cookies from "js-cookie"
 
+export const listenAuthState = () => {
+  return async (dispatch:any) => {
+    if (!Cookies.get("_access_token")) {
+      // 認証済みの場合
+      client.get('sessions', {
+        headers: {
+          'access-token': Cookies.get("_access_token"),
+          'client': Cookies.get("_client"),
+          'uid': Cookies.get("_uid")
+        }
+      })
+      .then((response) => {
+        console.log("registration res", response);
+        const userdata:UserData = response.data.data;
+
+        dispatch(signInAction({
+          isSignedIn: true,
+          isAdmin: userdata.isAdmin,
+          uid: userdata.uid,
+          name: userdata.name,
+          email: userdata.email,
+          image: userdata.image,
+        }));
+
+    }).catch(error => {
+        console.log("registration error", error)
+    })
+
+    } else {
+      // 認証されていない場合
+      dispatch(push('/signin'));
+    }
+  }
+}
+
 export const signIn = (email:string, password:string) => {
   return async (dispatch:any) => {
     // Validations
@@ -40,8 +75,7 @@ export const signIn = (email:string, password:string) => {
           image: userdata.image,
         }));
 
-        // TEST用
-        dispatch(push("/signupsuccess"));
+        dispatch(push("/"));
     }).catch(error => {
         // 失敗
         console.log("registration error", error)
@@ -104,8 +138,7 @@ export const signUp = (username:string, email:string, password:string, confirmPa
           image: userdata.image,
         }));
 
-        // TEST用
-        dispatch(push("/signupsuccess"));
+        dispatch(push("/"));
     }).catch(error => {
         // 失敗
         console.log("registration error", error)

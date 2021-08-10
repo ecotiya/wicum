@@ -48,6 +48,7 @@ const SignUp = () => {
         fullWidth={true} label={"パスワード再入力"} multiline={false} required={true}
         rows={1} value={confirmPassword} type={"password"} onChange={inputComfirmPassword}
       />
+      <div className="module-spacer--medium" />
       <div className="center">
         <PrimaryButton
           label={"アカウントを登録する"}

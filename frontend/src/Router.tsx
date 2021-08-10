@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import {Home, SignUp, SignIn, SignUpSuccess} from './components/templates/index';
+import {Home, SignUp, SignIn} from './components/templates/index';
+import Auth from './Auth';
 
 const Router = () => {
   return (
@@ -9,8 +10,10 @@ const Router = () => {
       // pathの値は動的に変更可能。/posts/:id
       <Route exact path={"/signup"} component={SignUp} />
       <Route exact path={"/signin"} component={SignIn} />
-      <Route exact path={"/signupsuccess"} component={SignUpSuccess} />
-      <Route exact path={"/"} component={Home} />
+
+      <Auth>
+        <Route exact path={"(/)?"} component={Home} />
+      </Auth>
     </Switch>
   );
 };

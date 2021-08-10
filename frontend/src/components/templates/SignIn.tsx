@@ -30,6 +30,7 @@ const SignIn = () => {
         fullWidth={true} label={"パスワード"} multiline={false} required={true}
         rows={1} value={password} type={"password"} onChange={inputPassword}
       />
+      <div className="module-spacer--medium" />
       <div className="center">
         <PrimaryButton
           label={"サインイン"}
