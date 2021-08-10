@@ -28,9 +28,9 @@ export const listenAuthState = () => {
           image: userdata.image,
         }));
 
-    }).catch(error => {
-        console.log("registration error", error)
-    })
+      }).catch(error => {
+          console.log("registration error", error)
+      })
 
     } else {
       // 認証されていない場合
@@ -81,14 +81,6 @@ export const signIn = (email:string, password:string) => {
         console.log("registration error", error)
         alert('サインイン処理に失敗しました。管理者にお問い合わせください。')
     })
-  }
-}
-
-export const signOut = () => {
-  return async (dispatch:any) => {
-
-    dispatch(signOutAction());
-    dispatch(push("/"));
   }
 }
 
@@ -143,6 +135,32 @@ export const signUp = (username:string, email:string, password:string, confirmPa
         // 失敗
         console.log("registration error", error)
         alert('アカウント登録に失敗しました。もう1度お試しください。')
+    })
+  }
+}
+
+export const signOut = () => {
+  return async (dispatch:any) => {
+    const res = client.delete("auth/sign_out", {
+      headers: {
+        'access-token': Cookies.get("_access_token"),
+        'client': Cookies.get("_client"),
+        'uid': Cookies.get("_uid")
+      }
+    })
+    .then(response => {
+        // 成功
+        console.log("registration res", response);
+        Cookies.remove("_access_token");
+        Cookies.remove("_client");
+        Cookies.remove("_uid");
+
+        dispatch(signOutAction());
+        dispatch(push('/signin'));
+    }).catch(error => {
+        // 失敗
+        console.log("registration error", error)
+        alert('サインアウト処理に失敗しました。管理者にお問い合わせください。')
     })
   }
 }
