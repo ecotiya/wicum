@@ -1,7 +1,8 @@
 import React, {useState, useCallback} from 'react';
-import {TextInput, PrimaryButton} from '../atoms/index';
+import {TextInput, PrimaryButton, Links} from '../atoms/index';
 import {signUp} from '../../re-ducks/users/index';
 import { useDispatch } from 'react-redux';
+import { push } from 'connected-react-router';
 
 const SignUp = () => {
 
@@ -53,6 +54,11 @@ const SignUp = () => {
         <PrimaryButton
           label={"アカウントを登録する"}
           onClick={() => dispatch(signUp(username, email, password, confirmPassword))}
+        />
+        <div className="module-spacer--extra-small" />
+        <Links
+          label={"アカウントをお持ちの方はこちら"}
+          onClick={() => dispatch(push('/signin'))}
         />
       </div>
     </div>
