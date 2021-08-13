@@ -19,7 +19,7 @@ const Links = (props:any) => {
 
   return (
     <Typography className={classes.root}>
-      <Link href="#" onClick={() => props.onClick()} variant="body2">
+      <Link href="" onClick={() => props.onClick()} variant="body2">
         {props.label}
       </Link>
     </Typography>
