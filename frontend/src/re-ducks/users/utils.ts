@@ -1,7 +1,7 @@
 import applyCaseMiddleware from "axios-case-converter";
 import axios from "axios";
 import Cookies from "js-cookie"
-import {RoutesPath} from '../../constants/commonConstants';
+import {ReactRoutesPath, RailsRoutesPath} from '../../constants/commonConstants';
 
 /**
  * Validate input email
@@ -38,8 +38,8 @@ export const isNonMemberPages = (pathname:string) => {
   let isNonMemberPages = false;
 
   switch (pathname) {
-    case RoutesPath.SIGN_IN:
-    case RoutesPath.SIGN_UP:
+    case ReactRoutesPath.SIGN_IN:
+    case ReactRoutesPath.SIGN_UP:
       isNonMemberPages = true;
       break;
     default:
@@ -51,7 +51,7 @@ export const isNonMemberPages = (pathname:string) => {
 
 // rails-react 疎通用 ================ Start
 export const client = applyCaseMiddleware(axios.create({
-  baseURL: "http://localhost:3000/api/v1"}));
+  baseURL: RailsRoutesPath.BASE_URL}));
 
 export const client_config = {
   headers: { 'Content-Type': 'application/json' },

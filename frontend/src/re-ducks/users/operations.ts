@@ -3,15 +3,15 @@ import { push } from 'connected-react-router';
 import { signInAction, signOutAction } from "./index";
 import { SignInParams, SignUpParams, UserData } from "./types";
 import {isValidEmailFormat, isValidRequiredInput, isNonMemberPages, client, client_config} from "./utils";
-import {RoutesPath} from '../../constants/commonConstants';
+import {ReactRoutesPath, RailsRoutesPath, CookieKeys} from '../../constants/commonConstants';
 
 // ヘッダーロゴクリック制御処理
 export const listenAuthHeaderLogoClick = () => {
   return async (dispatch:any) => {
-    if (Cookies.get("_access_token")) {
-      dispatch(push(RoutesPath.HOME));
+    if (Cookies.get(CookieKeys.ACCESS_TOKEN)) {
+      dispatch(push(ReactRoutesPath.HOME));
     } else {
-      dispatch(push(RoutesPath.SIGN_IN));
+      dispatch(push(ReactRoutesPath.SIGN_IN));
     }
   }
 }
@@ -19,12 +19,12 @@ export const listenAuthHeaderLogoClick = () => {
 // ブラウザバック制御処理
 export const listenAuthBrowserBack = (pathname:string) => {
   return async (dispatch:any) => {
-    if (Cookies.get("_access_token") && isNonMemberPages(pathname)) {
+    if (Cookies.get(CookieKeys.ACCESS_TOKEN) && isNonMemberPages(pathname)) {
       // 認証後に、認証前ページへ移動しようとした場合、強制的に認証後のディレクトリに移動させる。
-      dispatch(push(RoutesPath.HOME));
-    } else if (!Cookies.get("_access_token") && !isNonMemberPages(pathname)) {
+      dispatch(push(ReactRoutesPath.HOME));
+    } else if (!Cookies.get(CookieKeys.ACCESS_TOKEN) && !isNonMemberPages(pathname)) {
       // 未認証の場合は、ログインページへ強制送還。
-      dispatch(push(RoutesPath.SIGN_IN));
+      dispatch(push(ReactRoutesPath.SIGN_IN));
     }
   }
 }
@@ -32,13 +32,13 @@ export const listenAuthBrowserBack = (pathname:string) => {
 // 認証監視処理
 export const listenAuthState = (pathname:string) => {
   return async (dispatch:any) => {
-    if (Cookies.get("_access_token")) {
+    if (Cookies.get(CookieKeys.ACCESS_TOKEN)) {
       // 認証済みの場合
-      client.get('auth/sessions', {
+      client.get(RailsRoutesPath.SESSION, {
         headers: {
-          'access-token': Cookies.get("_access_token"),
-          'client': Cookies.get("_client"),
-          'uid': Cookies.get("_uid")
+          'access-token': Cookies.get(CookieKeys.ACCESS_TOKEN),
+          'client': Cookies.get(CookieKeys.CLIENT),
+          'uid': Cookies.get(CookieKeys.UID)
         }
       })
       .then((response) => {
@@ -61,7 +61,7 @@ export const listenAuthState = (pathname:string) => {
     } else {
       // 認証されていない場合
       if (!isNonMemberPages(pathname)) {
-        dispatch(push(RoutesPath.SIGN_IN));
+        dispatch(push(ReactRoutesPath.SIGN_IN));
       }
     }
   }
@@ -86,13 +86,13 @@ export const signIn = (email:string, password:string) => {
       password: password
     }
 
-    return client.post("auth/sign_in", params, client_config)
+    return client.post(RailsRoutesPath.SIGN_IN, params, client_config)
     .then(response => {
         // 成功
         console.log("registration res", response)
-        Cookies.set("_access_token", response.headers["accessToken"])
-        Cookies.set("_client", response.headers["client"])
-        Cookies.set("_uid", response.headers["uid"])
+        Cookies.set(CookieKeys.ACCESS_TOKEN, response.headers["accessToken"])
+        Cookies.set(CookieKeys.CLIENT, response.headers["client"])
+        Cookies.set(CookieKeys.UID, response.headers["uid"])
         const userdata:UserData = response.data.data;
 
         dispatch(signInAction({
@@ -104,7 +104,7 @@ export const signIn = (email:string, password:string) => {
           image: userdata.image,
         }));
 
-        dispatch(push(RoutesPath.HOME));
+        dispatch(push(ReactRoutesPath.HOME));
     }).catch(error => {
         // 失敗
         console.log("registration error", error)
@@ -142,13 +142,13 @@ export const signUp = (username:string, email:string, password:string, confirmPa
       passwordConfirmation: confirmPassword
     }
 
-    return client.post("auth", params, client_config)
+    return client.post(RailsRoutesPath.SIGN_UP, params, client_config)
     .then(response => {
         // 成功
         console.log("registration res", response)
-        Cookies.set("_access_token", response.headers["accessToken"])
-        Cookies.set("_client", response.headers["client"])
-        Cookies.set("_uid", response.headers["uid"])
+        Cookies.set(CookieKeys.ACCESS_TOKEN, response.headers["accessToken"])
+        Cookies.set(CookieKeys.CLIENT, response.headers["client"])
+        Cookies.set(CookieKeys.UID, response.headers["uid"])
         const userdata:UserData = response.data.data;
 
         dispatch(signInAction({
@@ -160,7 +160,7 @@ export const signUp = (username:string, email:string, password:string, confirmPa
           image: userdata.image,
         }));
 
-        dispatch(push(RoutesPath.HOME));
+        dispatch(push(ReactRoutesPath.HOME));
     }).catch(error => {
         // 失敗
         console.log("registration error", error)
@@ -172,22 +172,22 @@ export const signUp = (username:string, email:string, password:string, confirmPa
 // サインアウト
 export const signOut = () => {
   return async (dispatch:any) => {
-    return client.delete("auth/sign_out", {
+    return client.delete(RailsRoutesPath.SIGN_OUT, {
       headers: {
-        'access-token': Cookies.get("_access_token"),
-        'client': Cookies.get("_client"),
-        'uid': Cookies.get("_uid")
+        'access-token': Cookies.get(CookieKeys.ACCESS_TOKEN),
+        'client': Cookies.get(CookieKeys.CLIENT),
+        'uid': Cookies.get(CookieKeys.UID)
       }
     })
     .then(response => {
         // 成功
         console.log("registration res", response);
-        Cookies.remove("_access_token");
-        Cookies.remove("_client");
-        Cookies.remove("_uid");
+        Cookies.remove(CookieKeys.ACCESS_TOKEN);
+        Cookies.remove(CookieKeys.CLIENT);
+        Cookies.remove(CookieKeys.UID);
 
         dispatch(signOutAction());
-        dispatch(push(RoutesPath.SIGN_IN));
+        dispatch(push(ReactRoutesPath.SIGN_IN));
     }).catch(error => {
         // 失敗
         console.log("registration error", error)
