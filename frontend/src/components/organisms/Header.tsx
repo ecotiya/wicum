@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { useSelector, useDispatch } from 'react-redux';
 import { push } from 'connected-react-router';
 import { InitialStateModel } from '../../re-ducks/store/types'
-import { isSignedInState } from '../../re-ducks/users/index';
+import { isSignedInState, listenAuthHeaderLogoClick } from '../../re-ducks/users/index';
 import logo from '../../assets/img/icon/logo.png';
 import {HeaderMenus} from './index';
 
@@ -40,7 +40,7 @@ const Header = () => {
         <Toolbar className={classes.toolBar}>
           <img
             src={logo} alt="Wicum Logo" width="128px"
-            onClick={() => dispatch(push("/"))}
+            onClick={() => dispatch(listenAuthHeaderLogoClick())}
           />
           {isSignedIn && (
             <div className={classes.iconButtons}>

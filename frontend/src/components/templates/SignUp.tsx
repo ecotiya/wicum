@@ -3,6 +3,7 @@ import {TextInput, PrimaryButton, Links} from '../atoms/index';
 import {signUp} from '../../re-ducks/users/index';
 import { useDispatch } from 'react-redux';
 import { push } from 'connected-react-router';
+import {RoutesPath} from '../../constants/commonConstants';
 
 const SignUp = () => {
 
@@ -58,7 +59,7 @@ const SignUp = () => {
         <div className="module-spacer--extra-small" />
         <Links
           label={"アカウントをお持ちの方はこちら"}
-          onClick={() => dispatch(push('/signin'))}
+          onClick={() => dispatch(push(RoutesPath.SIGN_IN))}
         />
       </div>
     </div>

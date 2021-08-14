@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import {Home, SignUp, SignIn} from './components/templates/index';
 import {Auth} from './components/module/index';
+import {RoutesPath} from './constants/commonConstants';
 
 const Router = () => {
   return (
@@ -10,11 +11,11 @@ const Router = () => {
       // pathの値は動的に変更可能。/posts/:id
       <Auth>
         {/* ログイン前 */}
-        <Route exact path={"/signup"} component={SignUp} />
-        <Route exact path={"/signin"} component={SignIn} />
+        <Route exact path={RoutesPath.SIGN_IN} component={SignIn} />
+        <Route exact path={RoutesPath.SIGN_UP} component={SignUp} />
 
         {/* ログイン後 */}
-        <Route exact path={"(/)?"} component={Home} />
+        <Route exact path={RoutesPath.HOME} component={Home} />
       </Auth>
     </Switch>
   );

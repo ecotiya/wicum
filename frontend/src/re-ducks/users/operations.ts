@@ -1,19 +1,30 @@
+import Cookies from "js-cookie"
+import { push } from 'connected-react-router';
 import { signInAction, signOutAction } from "./index";
 import { SignInParams, SignUpParams, UserData } from "./types";
-import { push } from 'connected-react-router';
 import {isValidEmailFormat, isValidRequiredInput, isNonMemberPages, client, client_config} from "./utils";
-import Cookies from "js-cookie"
+import {RoutesPath} from '../../constants/commonConstants';
+
+// ヘッダーロゴクリック制御処理
+export const listenAuthHeaderLogoClick = () => {
+  return async (dispatch:any) => {
+    if (Cookies.get("_access_token")) {
+      dispatch(push(RoutesPath.HOME));
+    } else {
+      dispatch(push(RoutesPath.SIGN_IN));
+    }
+  }
+}
 
 // ブラウザバック制御処理
 export const listenAuthBrowserBack = (pathname:string) => {
   return async (dispatch:any) => {
-    const token = Cookies.get("_access_token");
     if (Cookies.get("_access_token") && isNonMemberPages(pathname)) {
       // 認証後に、認証前ページへ移動しようとした場合、強制的に認証後のディレクトリに移動させる。
-      dispatch(push('/'));
+      dispatch(push(RoutesPath.HOME));
     } else if (!Cookies.get("_access_token") && !isNonMemberPages(pathname)) {
       // 未認証の場合は、ログインページへ強制送還。
-      dispatch(push('/signin'));
+      dispatch(push(RoutesPath.SIGN_IN));
     }
   }
 }
@@ -48,9 +59,9 @@ export const listenAuthState = (pathname:string) => {
       })
 
     } else {
-      // 認証されていない場合 
+      // 認証されていない場合
       if (!isNonMemberPages(pathname)) {
-        dispatch(push('/signin'));
+        dispatch(push(RoutesPath.SIGN_IN));
       }
     }
   }
@@ -93,11 +104,11 @@ export const signIn = (email:string, password:string) => {
           image: userdata.image,
         }));
 
-        dispatch(push("/"));
+        dispatch(push(RoutesPath.HOME));
     }).catch(error => {
         // 失敗
         console.log("registration error", error)
-        alert('サインイン処理に失敗しました。管理者にお問い合わせください。')
+        alert('サインイン処理に失敗しました。メールアドレス及びパスワードをご確認ください。')
     })
   }
 }
@@ -149,7 +160,7 @@ export const signUp = (username:string, email:string, password:string, confirmPa
           image: userdata.image,
         }));
 
-        dispatch(push("/"));
+        dispatch(push(RoutesPath.HOME));
     }).catch(error => {
         // 失敗
         console.log("registration error", error)
@@ -176,7 +187,7 @@ export const signOut = () => {
         Cookies.remove("_uid");
 
         dispatch(signOutAction());
-        dispatch(push('/signin'));
+        dispatch(push(RoutesPath.SIGN_IN));
     }).catch(error => {
         // 失敗
         console.log("registration error", error)

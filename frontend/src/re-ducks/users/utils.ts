@@ -1,5 +1,7 @@
 import applyCaseMiddleware from "axios-case-converter";
 import axios from "axios";
+import Cookies from "js-cookie"
+import {RoutesPath} from '../../constants/commonConstants';
 
 /**
  * Validate input email
@@ -36,8 +38,8 @@ export const isNonMemberPages = (pathname:string) => {
   let isNonMemberPages = false;
 
   switch (pathname) {
-    case "/signup":
-    case "/signin":
+    case RoutesPath.SIGN_IN:
+    case RoutesPath.SIGN_UP:
       isNonMemberPages = true;
       break;
     default:
