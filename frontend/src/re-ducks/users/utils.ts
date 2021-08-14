@@ -27,6 +27,26 @@ export const isValidRequiredInput = (...args:any) => {
     return validator;
 };
 
+/**
+ * 非会員ページか否か判定
+ * @param pathname
+ * @returns {boolean}
+ */
+export const isNonMemberPages = (pathname:string) => {
+  let isNonMemberPages = false;
+
+  switch (pathname) {
+    case "/signup":
+    case "/signin":
+      isNonMemberPages = true;
+      break;
+    default:
+      break;
+  }
+
+  return isNonMemberPages;
+};
+
 // rails-react 疎通用 ================ Start
 export const client = applyCaseMiddleware(axios.create({
   baseURL: "http://localhost:3000/api/v1"}));

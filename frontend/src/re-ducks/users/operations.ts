@@ -1,17 +1,17 @@
 import { signInAction, signOutAction } from "./index";
 import { SignInParams, SignUpParams, UserData } from "./types";
 import { push } from 'connected-react-router';
-import {isValidEmailFormat, isValidRequiredInput, client, client_config} from "./utils";
+import {isValidEmailFormat, isValidRequiredInput, isNonMemberPages, client, client_config} from "./utils";
 import Cookies from "js-cookie"
 
 // ブラウザバック制御処理
 export const listenAuthBrowserBack = (pathname:string) => {
   return async (dispatch:any) => {
-    const token = Cookies.get("_access_token"); 
-    if (Cookies.get("_access_token") && ("/signup" === pathname || "/signin" === pathname)) {
+    const token = Cookies.get("_access_token");
+    if (Cookies.get("_access_token") && isNonMemberPages(pathname)) {
       // 認証後に、認証前ページへ移動しようとした場合、強制的に認証後のディレクトリに移動させる。
       dispatch(push('/'));
-    } else if (!Cookies.get("_access_token")) {
+    } else if (!Cookies.get("_access_token") && !isNonMemberPages(pathname)) {
       // 未認証の場合は、ログインページへ強制送還。
       dispatch(push('/signin'));
     }
@@ -19,7 +19,7 @@ export const listenAuthBrowserBack = (pathname:string) => {
 }
 
 // 認証監視処理
-export const listenAuthState = () => {
+export const listenAuthState = (pathname:string) => {
   return async (dispatch:any) => {
     if (Cookies.get("_access_token")) {
       // 認証済みの場合
@@ -48,8 +48,10 @@ export const listenAuthState = () => {
       })
 
     } else {
-      // 認証されていない場合
-      dispatch(push('/signin'));
+      // 認証されていない場合 
+      if (!isNonMemberPages(pathname)) {
+        dispatch(push('/signin'));
+      }
     }
   }
 }
