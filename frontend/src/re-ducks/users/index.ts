@@ -1,4 +1,4 @@
 export { signInAction, signOutAction } from './actions';
-export { listenAuthState, signIn, signOut, signUp } from './operations';
+export { listenAuthBrowserBack, listenAuthState, signIn, signOut, signUp } from './operations';
 export { UsersReducer } from "./reducers";
 export { getUserId, getUserName, getEmail, isSignedInState, isAdminState } from './selectors';

@@ -4,6 +4,21 @@ import { push } from 'connected-react-router';
 import {isValidEmailFormat, isValidRequiredInput, client, client_config} from "./utils";
 import Cookies from "js-cookie"
 
+// ブラウザバック制御処理
+export const listenAuthBrowserBack = (pathname:string) => {
+  return async (dispatch:any) => {
+    const token = Cookies.get("_access_token"); 
+    if (Cookies.get("_access_token") && ("/signup" === pathname || "/signin" === pathname)) {
+      // 認証後に、認証前ページへ移動しようとした場合、強制的に認証後のディレクトリに移動させる。
+      dispatch(push('/'));
+    } else if (!Cookies.get("_access_token")) {
+      // 未認証の場合は、ログインページへ強制送還。
+      dispatch(push('/signin'));
+    }
+  }
+}
+
+// 認証監視処理
 export const listenAuthState = () => {
   return async (dispatch:any) => {
     if (Cookies.get("_access_token")) {
@@ -39,6 +54,7 @@ export const listenAuthState = () => {
   }
 }
 
+// サインイン
 export const signIn = (email:string, password:string) => {
   return async (dispatch:any) => {
     // Validations
@@ -84,6 +100,7 @@ export const signIn = (email:string, password:string) => {
   }
 }
 
+// サインアップ
 export const signUp = (username:string, email:string, password:string, confirmPassword:string) => {
   return async (dispatch:any) => {
     // Validations
@@ -139,6 +156,7 @@ export const signUp = (username:string, email:string, password:string, confirmPa
   }
 }
 
+// サインアウト
 export const signOut = () => {
   return async (dispatch:any) => {
     return client.delete("auth/sign_out", {
