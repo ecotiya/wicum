@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import {Home, SignUp, SignIn} from './components/templates/index';
+import {Account, Home, SignUp, SignIn} from './components/templates/index';
 import {Auth} from './components/module/index';
 import {ReactRoutesPath} from './constants/commonConstants';
 
@@ -16,6 +16,7 @@ const Router = () => {
 
         {/* ログイン後 */}
         <Route exact path={ReactRoutesPath.HOME} component={Home} />
+        <Route exact path={'/account'} component={Account} />
       </Auth>
     </Switch>
   );
