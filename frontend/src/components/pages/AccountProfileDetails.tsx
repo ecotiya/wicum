@@ -10,29 +10,10 @@ import {
   TextField
 } from '@material-ui/core';
 
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  }
-];
-
 const AccountProfileDetails = (props:any) => {
   const [values, setValues] = useState({
-    firstName: 'バラク',
-    lastName: 'オバマ',
+    username: 'ecotiya',
     email: 'demo@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
   });
 
   const handleChange = (event:any) => {
@@ -50,8 +31,8 @@ const AccountProfileDetails = (props:any) => {
     >
       <Card>
         <CardHeader
-          subheader="The information can be edited"
-          title="Profile"
+          subheader="ユーザ情報を変更できます。"
+          title="プロフィール"
         />
         <Divider />
         <CardContent>
@@ -66,12 +47,11 @@ const AccountProfileDetails = (props:any) => {
             >
               <TextField
                 fullWidth
-                helperText="Please specify the first name"
-                label="First name"
-                name="firstName"
+                label="ユーザー名"
+                name="username"
                 onChange={handleChange}
                 required
-                value={values.firstName}
+                value={values.username}
                 variant="outlined"
               />
             </Grid>
@@ -82,84 +62,13 @@ const AccountProfileDetails = (props:any) => {
             >
               <TextField
                 fullWidth
-                label="Last name"
-                name="lastName"
-                onChange={handleChange}
-                required
-                value={values.lastName}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Email Address"
+                label="メールアドレス"
                 name="email"
                 onChange={handleChange}
                 required
                 value={values.email}
                 variant="outlined"
               />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Phone Number"
-                name="phone"
-                onChange={handleChange}
-                type="number"
-                value={values.phone}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Country"
-                name="country"
-                onChange={handleChange}
-                required
-                value={values.country}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Select State"
-                name="state"
-                onChange={handleChange}
-                required
-                select
-                SelectProps={{ native: true }}
-                value={values.state}
-                variant="outlined"
-              >
-                {states.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
             </Grid>
           </Grid>
         </CardContent>

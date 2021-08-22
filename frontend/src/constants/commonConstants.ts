@@ -1,8 +1,9 @@
 /** Reactルーター指定のパス */
 export const ReactRoutesPath = {
-  SIGN_IN: '/signin', // サインイン画面
-  SIGN_UP: '/signup', // サインアップ画面
-  HOME: '/',          // ホーム画面
+  SIGN_IN: '/signin',   // サインイン画面
+  SIGN_UP: '/signup',   // サインアップ画面
+  HOME: '/',            // ホーム画面
+  ACCOUNT: '/account',  // ユーザーアカウント画面
 };
 
 /** Railsルーター指定のパス */

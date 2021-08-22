@@ -16,7 +16,7 @@ const Router = () => {
 
         {/* ログイン後 */}
         <Route exact path={ReactRoutesPath.HOME} component={Home} />
-        <Route exact path={'/account'} component={Account} />
+        <Route exact path={ReactRoutesPath.ACCOUNT} component={Account} />
       </Auth>
     </Switch>
   );

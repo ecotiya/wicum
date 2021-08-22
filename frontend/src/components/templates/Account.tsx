@@ -8,7 +8,11 @@ import {AccountProfile, AccountProfileDetails}  from '../pages/index';
 const Account = () => (
   <>
     <Box
-
+      sx={{
+        backgroundColor: 'background.default',
+        minHeight: '100%',
+        py: 3
+      }}
     >
       <Container maxWidth="lg">
         <Grid
