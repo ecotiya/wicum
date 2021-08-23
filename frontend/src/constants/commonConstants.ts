@@ -13,6 +13,7 @@ export const RailsRoutesPath = {
   SIGN_UP:  'auth',                           // サインアップ
   SIGN_OUT: 'auth/sign_out',                  // サインアウト
   SESSION:  'auth/sessions',                  // セッション確認
+  USER_INFO_UPDATE: 'auth',                   // ユーザ情報更新
 };
 
 /** Cookieに保存するキー情報 */

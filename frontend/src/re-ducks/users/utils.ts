@@ -1,7 +1,7 @@
 import applyCaseMiddleware from "axios-case-converter";
 import axios from "axios";
 import Cookies from "js-cookie"
-import {ReactRoutesPath, RailsRoutesPath} from '../../constants/commonConstants';
+import {ReactRoutesPath, RailsRoutesPath, CookieKeys} from '../../constants/commonConstants';
 
 /**
  * Validate input email
@@ -53,8 +53,19 @@ export const isNonMemberPages = (pathname:string) => {
 export const client = applyCaseMiddleware(axios.create({
   baseURL: RailsRoutesPath.BASE_URL}));
 
-export const client_config = {
+export const unauth_client_config = {
   headers: { 'Content-Type': 'application/json' },
+  withCredentials: true,
+  ignoreHeaders: true
+};
+
+export const logined_client_config = {
+  headers: {
+    'access-token': Cookies.get(CookieKeys.ACCESS_TOKEN),
+    'client': Cookies.get(CookieKeys.CLIENT),
+    'uid': Cookies.get(CookieKeys.UID),
+    'Content-Type': 'application/json'
+  },
   withCredentials: true,
   ignoreHeaders: true
 };

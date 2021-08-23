@@ -42,3 +42,9 @@ export interface SignUpParams {
   password: string
   passwordConfirmation: string
 }
+
+// ユーザ情報更新
+export interface UserInfoUpdateParams {
+  name: string
+  email: string
+}

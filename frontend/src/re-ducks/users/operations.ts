@@ -1,8 +1,8 @@
 import Cookies from "js-cookie"
 import { push } from 'connected-react-router';
 import { signInAction, signOutAction } from "./index";
-import { SignInParams, SignUpParams, UserData } from "./types";
-import {isValidEmailFormat, isValidRequiredInput, isNonMemberPages, client, client_config} from "./utils";
+import { SignInParams, SignUpParams, UserData, UserInfoUpdateParams } from "./types";
+import {isValidEmailFormat, isValidRequiredInput, isNonMemberPages, client, unauth_client_config, logined_client_config} from "./utils";
 import {ReactRoutesPath, RailsRoutesPath, CookieKeys} from '../../constants/commonConstants';
 
 // ヘッダーロゴクリック制御処理
@@ -34,13 +34,7 @@ export const listenAuthState = (pathname:string) => {
   return async (dispatch:any) => {
     if (Cookies.get(CookieKeys.ACCESS_TOKEN)) {
       // 認証済みの場合
-      client.get(RailsRoutesPath.SESSION, {
-        headers: {
-          'access-token': Cookies.get(CookieKeys.ACCESS_TOKEN),
-          'client': Cookies.get(CookieKeys.CLIENT),
-          'uid': Cookies.get(CookieKeys.UID)
-        }
-      })
+      client.get(RailsRoutesPath.SESSION, logined_client_config)
       .then((response) => {
         console.log("registration res", response);
         const userdata:UserData = response.data.data;
@@ -86,7 +80,7 @@ export const signIn = (email:string, password:string) => {
       password: password
     }
 
-    return client.post(RailsRoutesPath.SIGN_IN, params, client_config)
+    return client.post(RailsRoutesPath.SIGN_IN, params, unauth_client_config)
     .then(response => {
         // 成功
         console.log("registration res", response)
@@ -142,7 +136,7 @@ export const signUp = (username:string, email:string, password:string, confirmPa
       passwordConfirmation: confirmPassword
     }
 
-    return client.post(RailsRoutesPath.SIGN_UP, params, client_config)
+    return client.post(RailsRoutesPath.SIGN_UP, params, unauth_client_config)
     .then(response => {
         // 成功
         console.log("registration res", response)
@@ -172,13 +166,7 @@ export const signUp = (username:string, email:string, password:string, confirmPa
 // サインアウト
 export const signOut = () => {
   return async (dispatch:any) => {
-    return client.delete(RailsRoutesPath.SIGN_OUT, {
-      headers: {
-        'access-token': Cookies.get(CookieKeys.ACCESS_TOKEN),
-        'client': Cookies.get(CookieKeys.CLIENT),
-        'uid': Cookies.get(CookieKeys.UID)
-      }
-    })
+    return client.delete(RailsRoutesPath.SIGN_OUT, logined_client_config)
     .then(response => {
         // 成功
         console.log("registration res", response);
@@ -192,6 +180,57 @@ export const signOut = () => {
         // 失敗
         console.log("registration error", error)
         alert('サインアウト処理に失敗しました。管理者にお問い合わせください。')
+    })
+  }
+}
+
+// ユーザ画像更新
+// export const userImageUpdate = () => {
+//
+// }
+
+// ユーザ情報更新
+export const userInfoUpdate = (username:string, email:string) => {
+  return async (dispatch:any) => {
+    // Validations
+    if(!isValidRequiredInput(username, email)) {
+        alert('必須項目が未入力です。');
+        return false;
+    }
+
+    if(!isValidEmailFormat(email)) {
+        alert('メールアドレスの形式が不正です。もう1度お試しください。');
+        return false;
+    }
+
+    const params: UserInfoUpdateParams = {
+      name: username,
+      email: email
+    }
+
+    return client.put(RailsRoutesPath.USER_INFO_UPDATE, params, logined_client_config)
+    .then(response => {
+        // 成功
+        console.log("registration res", response)
+        Cookies.set(CookieKeys.ACCESS_TOKEN, response.headers["accessToken"])
+        Cookies.set(CookieKeys.CLIENT, response.headers["client"])
+        Cookies.set(CookieKeys.UID, response.headers["uid"])
+        const userdata:UserData = response.data.data;
+
+        dispatch(signInAction({
+          isSignedIn: true,
+          isAdmin: userdata.isAdmin,
+          uid: userdata.uid,
+          name: userdata.name,
+          email: userdata.email,
+          image: userdata.image,
+        }));
+
+        confirm('ユーザ情報を更新しました。')
+    }).catch(error => {
+        // 失敗
+        console.log("registration error", error)
+        alert('ユーザ情報の更新に失敗しました。')
     })
   }
 }

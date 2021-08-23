@@ -19,6 +19,11 @@ export const getEmail = createSelector (
   state => state.email
 )
 
+export const getImage = createSelector (
+  [usersSelector],
+  state => state.image
+)
+
 export const isSignedInState = createSelector (
   [usersSelector],
   state => state.isSignedIn

@@ -58,3 +58,5 @@ ja:
       not_saved:
         one: "エラーが発生したため %{resource} は保存されませんでした:"
         other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした:"
+      file_too_large:       "はサイズが10メガバイト以内のものを選択してください。"
+      file_type_not_image:  "はjpg、jpeg、pngのみ選択できます。"

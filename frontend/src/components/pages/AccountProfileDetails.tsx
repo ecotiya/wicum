@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Box,
   Button,
@@ -9,25 +10,48 @@ import {
   Grid,
   TextField
 } from '@material-ui/core';
+import {makeStyles} from "@material-ui/styles";
+import { getUserName, getEmail, userInfoUpdate } from '../../re-ducks/users/index';
+import { InitialStateModel } from '../../re-ducks/store/types'
 
-const AccountProfileDetails = (props:any) => {
-  const [values, setValues] = useState({
-    username: 'ecotiya',
-    email: 'demo@devias.io',
-  });
+const useStyles = makeStyles({
+  "button": {
+    backgroundColor: "#58CE91",
+    color: "#000",
+    fontSize: 16,
+    height: 48,
+    marginButton: 16,
+  }
+})
 
-  const handleChange = (event:any) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
-  };
+const AccountProfileDetails = () => {
+  const classes = useStyles();
+
+  const dispatch = useDispatch();
+  const selector = useSelector((state: InitialStateModel) => state);
+  const storeUserName = getUserName(selector);
+  const storeEmail = getEmail(selector);
+
+  const [username, setUserName] = useState<string>(""),
+        [email, setEmail] = useState<string>("");
+
+  const inputUserName = useCallback((event) => {
+    setUserName(event.target.value)
+  }, [setUserName]);
+
+  const inputEmail = useCallback((event) => {
+    setEmail(event.target.value)
+  }, [setEmail]);
+
+  useEffect(() => {
+    setUserName(storeUserName);
+    setEmail(storeEmail);
+  },[storeUserName, storeEmail]);
 
   return (
     <form
       autoComplete="off"
       noValidate
-      {...props}
     >
       <Card>
         <CardHeader
@@ -49,9 +73,9 @@ const AccountProfileDetails = (props:any) => {
                 fullWidth
                 label="ユーザー名"
                 name="username"
-                onChange={handleChange}
+                onChange={inputUserName}
                 required
-                value={values.username}
+                value={username}
                 variant="outlined"
               />
             </Grid>
@@ -64,9 +88,9 @@ const AccountProfileDetails = (props:any) => {
                 fullWidth
                 label="メールアドレス"
                 name="email"
-                onChange={handleChange}
+                onChange={inputEmail}
                 required
-                value={values.email}
+                value={email}
                 variant="outlined"
               />
             </Grid>
@@ -81,10 +105,11 @@ const AccountProfileDetails = (props:any) => {
           }}
         >
           <Button
-            color="primary"
+            className={classes.button}
             variant="contained"
+            onClick={() => dispatch(userInfoUpdate(username, email))}
           >
-            Save details
+            保存
           </Button>
         </Box>
       </Card>

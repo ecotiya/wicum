@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Box,
   Container,
@@ -9,7 +10,6 @@ const Account = () => (
   <>
     <Box
       sx={{
-        backgroundColor: 'background.default',
         minHeight: '100%',
         py: 3
       }}
