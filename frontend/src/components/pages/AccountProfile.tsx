@@ -11,6 +11,8 @@ import {
   Typography
 } from '@material-ui/core';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { InitialStateModel } from '../../re-ducks/store/types'
+import { getAvatarUrl , userAvatarUpdate } from '../../re-ducks/users/index';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,20 +25,20 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const AccountProfile = () => {
   const classes = useStyles();
-  const [img, setImg] = useState({data: "", name: ""})
 
   const dispatch = useDispatch();
+  const selector = useSelector((state: InitialStateModel) => state);
+  const avatarUrl = getAvatarUrl(selector);
+
   const uploadImage = useCallback((event) => {
     const reader = new FileReader();
     const files = event.target.files;
     if (files) {
-     reader.onload = () => {
-       setImg({
-         data: reader.result as string,
-         name: files[0] ? files[0].name : "unknownfile"
-       })
-     }
      reader.readAsDataURL(files[0])
+     const submitData = new FormData()
+     submitData.append("avatar", files[0])
+
+     dispatch(userAvatarUpdate(submitData))
    }
   }, [])
 
@@ -54,6 +56,7 @@ const AccountProfile = () => {
             alt="ユーザ画像"
             color="primary"
             className={classes.size}
+            src={avatarUrl}
           />
         </Box>
       </CardContent>
@@ -67,7 +70,7 @@ const AccountProfile = () => {
           <label>
             画像を変更する
             <input className="u-display-none" type="file" id="image"
-            accept="image/*" onChange={(event) => uploadImage(event)} />
+            accept="image/,.png,.jpg,.jpeg" onChange={(event) => uploadImage(event)} />
           </label>
         </Button>
       </CardActions>

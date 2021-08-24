@@ -66,4 +66,8 @@ Rails.application.configure do
 
   # メール認証用
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # ActiveStorage 画像URL取得用
+  Rails.application.routes.default_url_options[:host] = 'localhost'
+  Rails.application.routes.default_url_options[:port] = 3000
 end

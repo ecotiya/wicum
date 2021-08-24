@@ -19,9 +19,9 @@ export const getEmail = createSelector (
   state => state.email
 )
 
-export const getImage = createSelector (
+export const getAvatarUrl = createSelector (
   [usersSelector],
-  state => state.image
+  state => state.avatarUrl
 )
 
 export const isSignedInState = createSelector (

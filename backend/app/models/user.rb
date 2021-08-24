@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
          :validatable#, :confirmable
   include DeviseTokenAuth::Concerns::User
 
+  # url_forを使うためにインクルード
+  include Rails.application.routes.url_helpers
+
   # ActiveStorageとUserを紐付け
   has_one_attached :avatar
 
@@ -21,14 +24,19 @@ class User < ActiveRecord::Base
     if avatar.blob.byte_size > 10.megabytes
       # エラーメッセージはi18nから取得
       errors.add(:avatar, :file_too_large)
-    elsif !image?
+    elsif !avatar?
       errors.add(:avatar, :file_type_not_image)
     end
   end
 
    # 拡張子でファイルの種類を確認
-   def image?
+   def avatar?
      avatar.content_type.in?(%("image/jpeg image/jpg image/png"))
+   end
+
+   def avatar_url
+     # 紐づいている画像のURLを取得する
+     avatar.attached? ?  url_for(avatar) : nil
    end
 
    # device機能説明

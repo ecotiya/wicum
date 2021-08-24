@@ -9,4 +9,9 @@ class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsCon
     def account_update_params
       params.permit(:name, :email, :avatar)
     end
+
+    # ActiveStorageに紐づけた画像情報を返却する。
+    def render_update_success
+      render json: { data: current_api_v1_user }, methods: [:avatar_url]
+    end
 end

@@ -69,4 +69,16 @@ export const logined_client_config = {
   withCredentials: true,
   ignoreHeaders: true
 };
+
+// 画像データ送信用の設定
+export const picture_send_client_config = {
+  headers: {
+    'access-token': Cookies.get(CookieKeys.ACCESS_TOKEN),
+    'client': Cookies.get(CookieKeys.CLIENT),
+    'uid': Cookies.get(CookieKeys.UID),
+    'Content-Type': 'multipart/form-data' // 画像ファイルを取り扱うのでform-dataで送信
+  },
+  withCredentials: true,
+  ignoreHeaders: true
+};
 // rails-react 疎通用 ================ End

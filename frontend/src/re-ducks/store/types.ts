@@ -8,6 +8,7 @@ export interface InitialStateModel {
     name: string;
     email: string;
     image: string
+    avatarUrl: string
   }
 }
 

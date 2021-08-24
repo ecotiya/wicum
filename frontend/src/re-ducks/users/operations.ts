@@ -1,8 +1,8 @@
 import Cookies from "js-cookie"
 import { push } from 'connected-react-router';
 import { signInAction, signOutAction } from "./index";
-import { SignInParams, SignUpParams, UserData, UserInfoUpdateParams } from "./types";
-import {isValidEmailFormat, isValidRequiredInput, isNonMemberPages, client, unauth_client_config, logined_client_config} from "./utils";
+import { SignInParams, SignUpParams, UserData, AvatarParams, UserInfoUpdateParams } from "./types";
+import {isValidEmailFormat, isValidRequiredInput, isNonMemberPages, client, unauth_client_config, logined_client_config, picture_send_client_config} from "./utils";
 import {ReactRoutesPath, RailsRoutesPath, CookieKeys} from '../../constants/commonConstants';
 
 // ヘッダーロゴクリック制御処理
@@ -46,6 +46,7 @@ export const listenAuthState = (pathname:string) => {
           name: userdata.name,
           email: userdata.email,
           image: userdata.image,
+          avatarUrl: userdata.avatarUrl,
         }));
 
       }).catch(error => {
@@ -96,6 +97,7 @@ export const signIn = (email:string, password:string) => {
           name: userdata.name,
           email: userdata.email,
           image: userdata.image,
+          avatarUrl: userdata.avatarUrl,
         }));
 
         dispatch(push(ReactRoutesPath.HOME));
@@ -152,6 +154,7 @@ export const signUp = (username:string, email:string, password:string, confirmPa
           name: userdata.name,
           email: userdata.email,
           image: userdata.image,
+          avatarUrl: userdata.avatarUrl,
         }));
 
         dispatch(push(ReactRoutesPath.HOME));
@@ -185,9 +188,36 @@ export const signOut = () => {
 }
 
 // ユーザ画像更新
-// export const userImageUpdate = () => {
-//
-// }
+export const userAvatarUpdate = (avatar:FormData) => {
+  return async (dispatch:any) => {
+    // 画像に関するバリデーションやサイズチェックはRails側で実施。
+    return client.put(RailsRoutesPath.USER_INFO_UPDATE, avatar, picture_send_client_config)
+    .then(response => {
+        // 成功
+        console.log("registration res", response)
+        Cookies.set(CookieKeys.ACCESS_TOKEN, response.headers["accessToken"])
+        Cookies.set(CookieKeys.CLIENT, response.headers["client"])
+        Cookies.set(CookieKeys.UID, response.headers["uid"])
+        const userdata:UserData = response.data.data;
+
+        dispatch(signInAction({
+          isSignedIn: true,
+          isAdmin: userdata.isAdmin,
+          uid: userdata.uid,
+          name: userdata.name,
+          email: userdata.email,
+          image: userdata.image,
+          avatarUrl: userdata.avatarUrl,
+        }));
+
+        confirm('ユーザ画像を更新しました。')
+    }).catch(error => {
+        // 失敗
+        console.log("registration error", error)
+        alert('ユーザ画像の更新に失敗しました。')
+    })
+  }
+}
 
 // ユーザ情報更新
 export const userInfoUpdate = (username:string, email:string) => {
@@ -224,6 +254,7 @@ export const userInfoUpdate = (username:string, email:string) => {
           name: userdata.name,
           email: userdata.email,
           image: userdata.image,
+          avatarUrl: userdata.avatarUrl,
         }));
 
         confirm('ユーザ情報を更新しました。')

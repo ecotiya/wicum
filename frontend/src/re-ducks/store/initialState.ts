@@ -11,5 +11,6 @@ export const initialState:InitialStateModel = {
     name: "guest",
     email: "",
     image: "",
+    avatarUrl: "",
   }
 };

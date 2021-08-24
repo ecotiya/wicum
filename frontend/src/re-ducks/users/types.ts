@@ -12,6 +12,7 @@ export interface UserState {
   name: string;
   email: string;
   image?: string;
+  avatarUrl?: string
 }
 
 // ユーザー
@@ -27,6 +28,7 @@ export interface UserData {
   created_at: Date
   updated_at: Date
   isAdmin: boolean
+  avatarUrl?: string
 }
 
 // サインイン
@@ -41,6 +43,12 @@ export interface SignUpParams {
   email: string
   password: string
   passwordConfirmation: string
+}
+
+// ユーザ画像更新
+export interface AvatarParams {
+  data: string
+  name: string
 }
 
 // ユーザ情報更新

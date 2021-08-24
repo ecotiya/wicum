@@ -1,10 +1,24 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Avatar from '@material-ui/core/Avatar';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { InitialStateModel } from '../../re-ducks/store/types'
+import { getAvatarUrl } from '../../re-ducks/users/index';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    size: {
+      width: theme.spacing(4),
+      height: theme.spacing(4),
+    },
+  }),
+);
 
 const HeaderMenus = () => {
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -16,6 +30,10 @@ const HeaderMenus = () => {
     setAnchorEl(null);
   };
 
+  const dispatch = useDispatch();
+  const selector = useSelector((state: InitialStateModel) => state);
+  const avatarUrl = getAvatarUrl(selector);
+
   return (
     <>
       <div>
@@ -26,7 +44,10 @@ const HeaderMenus = () => {
           onClick={handleMenu}
           color="inherit"
         >
-          <AccountCircle />
+          <Avatar
+            className={classes.size}
+            src={avatarUrl}
+          />
         </IconButton>
         <Menu
           id="menu-appbar"
