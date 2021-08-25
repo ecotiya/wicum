@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import IconButton from '@material-ui/core/IconButton';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import Avatar from '@material-ui/core/Avatar';
+import {push} from "connected-react-router";
+import {
+  Menu,
+  MenuItem,
+  Avatar,
+  ListItemIcon,
+  ListItemText,
+  IconButton
+} from '@material-ui/core';
+import {
+  AccountCircle,
+  ExitToApp
+} from '@material-ui/icons';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { InitialStateModel } from '../../re-ducks/store/types'
-import { getAvatarUrl } from '../../re-ducks/users/index';
+import { getAvatarUrl, signOut } from '../../re-ducks/users/index';
+import { ReactRoutesPath } from '../../constants/commonConstants';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,6 +43,11 @@ const HeaderMenus = () => {
   const dispatch = useDispatch();
   const selector = useSelector((state: InitialStateModel) => state);
   const avatarUrl = getAvatarUrl(selector);
+
+  const transition = useCallback((path) => {
+    dispatch(push(path))
+    setAnchorEl(null);
+  }, []);
 
   return (
     <>
@@ -64,8 +79,18 @@ const HeaderMenus = () => {
           open={open}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
-          <MenuItem onClick={handleClose}>My account</MenuItem>
+          <MenuItem onClick={() => transition(ReactRoutesPath.ACCOUNT)}>
+            <ListItemIcon>
+              <AccountCircle />
+            </ListItemIcon>
+            <ListItemText primary="プロフィール" />
+          </MenuItem>
+          <MenuItem onClick={() => dispatch(signOut())}>
+            <ListItemIcon>
+              <ExitToApp />
+            </ListItemIcon>
+            <ListItemText primary="サインアウト" />
+          </MenuItem>
         </Menu>
       </div>
     </>

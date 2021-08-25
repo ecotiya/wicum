@@ -1,5 +1,5 @@
-import React from 'react';
-import { signIn, signOut, getUserId, getUserName, getEmail, isSignedInState, isAdminState } from '../../re-ducks/users/index';
+import React, { useEffect } from 'react';
+import { signIn, signOut, getUserId, getUserName, getEmail, isSignedInState, isAdminState, listenAuthState } from '../../re-ducks/users/index';
 import { InitialStateModel } from '../../re-ducks/store/types'
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -11,6 +11,10 @@ const Home = () => {
   const email = getEmail(selector);
   const isSignedIn = isSignedInState(selector);
   const isAdmin = isAdminState(selector);
+
+  useEffect(() => {
+      dispatch(listenAuthState(location.pathname));
+  },[]);
 
   return (
     <div>
